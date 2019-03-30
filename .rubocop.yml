@@ -1,0 +1,50 @@
+AllCops:
+  Exclude:
+    - config.ru
+    - Rakefile
+    - db/**/*
+    - bin/**/*
+    - config/**/*
+    - vendor/**/*
+    - node_modules/**/*
+
+Rails:
+  Enabled: true
+
+#################### Style ####################
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+#################### Lint ####################
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - lib/tasks/*
+
+#################### Metrics ####################
+
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/BlockLength:
+  Exclude:
+    - lib/tasks/*
+
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 20

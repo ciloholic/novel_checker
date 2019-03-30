@@ -1,0 +1,21 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username:
+  password:
+  host: localhost
+
+development:
+  <<: *default
+  database:
+
+test:
+  <<: *default
+  database:
+
+production:
+  <<: *default
+  database:
+  username:
+  password: <%= ENV['SS_WATCHER_DATABASE_PASSWORD'] %>
