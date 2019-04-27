@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_30_164458) do
+ActiveRecord::Schema.define(version: 2019_03_31_083310) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "namespace"
@@ -38,4 +38,39 @@ ActiveRecord::Schema.define(version: 2019_03_30_164458) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "chapters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "novel_id"
+    t.integer "chapter", default: 0, null: false
+    t.string "sub_title"
+    t.text "content", limit: 16777215
+    t.datetime "post_at"
+    t.datetime "edit_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["novel_id"], name: "index_chapters_on_novel_id"
+  end
+
+  create_table "novels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "site_id"
+    t.string "code", null: false
+    t.string "title"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id", "code"], name: "index_novels_on_site_id_and_code", unique: true
+    t.index ["site_id"], name: "index_novels_on_site_id"
+  end
+
+  create_table "sites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.string "url", null: false
+    t.bigint "sort", null: false
+    t.boolean "restrict", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "chapters", "novels"
+  add_foreign_key "novels", "sites"
 end
