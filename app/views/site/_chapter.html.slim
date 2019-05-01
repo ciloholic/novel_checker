@@ -1,0 +1,8 @@
+/ 詳細
+- set_meta_tags title: chapter.sub_title
+.content__title
+  h3 #{chapter.sub_title}
+.content__body
+  == "#{chapter.content}"
+
+= render partial: 'menu', locals: {menu: menu}

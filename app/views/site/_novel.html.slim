@@ -1,0 +1,15 @@
+/ 目次
+- set_meta_tags title: novel.title
+.content__title
+  h3 #{novel.title}
+ul.content__chapter
+  - novel.chapters.each do |chapter|
+    li
+      a href="/#{params[:code]}/#{params[:novel_id]}/#{chapter.id}#main"
+        == "#{chapter.sub_title.truncate(60)}"
+        - if chapter.edit_at.present?
+          span #{chapter.edit_at.strftime("%Y/%m/%d %H:%M")}
+        - else
+          span #{chapter.post_at.strftime("%Y/%m/%d %H:%M")}
+
+= render partial: 'menu', locals: {menu: menu}

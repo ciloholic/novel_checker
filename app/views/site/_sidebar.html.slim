@@ -1,0 +1,6 @@
+- sites.each do |site|
+  .sidebar__siteTitle #{site.name}
+  ul.sidebar__novelTitle
+    - site.novels.each do |novel|
+      li
+        a href="/#{site.code}/#{novel.id}#main" #{novel.title.truncate(50)}

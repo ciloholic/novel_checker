@@ -29,23 +29,6 @@ namespace :novel_scraping do
         false
       end
 
-      def create_url(site = nil, novel = nil)
-        case site.code
-        when /arcadia|arcadia-r18/
-          url = URI(site.url)
-          url.query = { act: 'dump', cate: 'all', all: novel.code, n: 0, count: 1 }.to_query
-          url.to_s
-        when /hameln|hameln-r18/
-          URI.join(site.url, '/novel/' + novel.code).to_s
-        when 'akatsuki'
-          URI.join(site.url, 'novel_id~' + novel.code).to_s
-        when /narou|nocturne/
-          URI.join(site.url, novel.code).to_s
-        else
-          raise 'site code error'
-        end
-      end
-
       def random_sleep(min: 1, max: 4)
         sleep([*min..max].sample)
       end
@@ -66,7 +49,7 @@ namespace :novel_scraping do
     Parallel.each(Site.where.not(code: 'other'), in_processes: 6) do |site|
       ActiveRecord::Base.connection_pool.with_connection do
         Novel.where(site_id: site.id).each do |novel|
-          url = create_url(site, novel)
+          url = novel.target_url
           next if url.blank?
 
           status_code = url_status(url)
@@ -86,7 +69,7 @@ namespace :novel_scraping do
     site = Site.find_by(code: 'arcadia')
     Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
       begin
-        url = create_url(site, novel)
+        url = novel.target_url
         html = Nokogiri::HTML(Kernel.open(url))
       rescue StandardError
         next
@@ -147,7 +130,7 @@ namespace :novel_scraping do
     site = Site.find_by(code: 'arcadia-r18')
     Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
       begin
-        url = create_url(site, novel)
+        url = novel.target_url
         html = Nokogiri::HTML(Kernel.open(url))
       rescue StandardError
         next
@@ -208,7 +191,7 @@ namespace :novel_scraping do
     site = Site.find_by(code: 'narou')
     Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
       begin
-        url = create_url(site, novel)
+        url = novel.target_url
         html = Nokogiri::HTML(Kernel.open(url))
       rescue StandardError
         next
@@ -269,7 +252,7 @@ namespace :novel_scraping do
     site = Site.find_by(code: 'hameln')
     Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
       begin
-        url = create_url(site, novel)
+        url = novel.target_url
         html = Nokogiri::HTML(Kernel.open(url))
       rescue StandardError
         next
@@ -330,7 +313,7 @@ namespace :novel_scraping do
     site = Site.find_by(code: 'akatsuki')
     Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
       begin
-        url = create_url(site, novel)
+        url = novel.target_url
         html = Nokogiri::HTML(Kernel.open(url))
       rescue StandardError
         next
@@ -391,7 +374,7 @@ namespace :novel_scraping do
     site = Site.find_by(code: 'nocturne')
     Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
       begin
-        url = create_url(site, novel)
+        url = novel.target_url
         html = Nokogiri::HTML(Kernel.open(url, 'Cookie' => 'over18=yes'))
       rescue StandardError
         next
@@ -452,7 +435,7 @@ namespace :novel_scraping do
     site = Site.find_by(code: 'hameln-r18')
     Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
       begin
-        url = create_url(site, novel)
+        url = novel.target_url
         html = Nokogiri::HTML(Kernel.open(url, 'Cookie' => 'over18=off'))
       rescue StandardError
         next

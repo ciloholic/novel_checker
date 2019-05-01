@@ -20,4 +20,21 @@ class Novel < ApplicationRecord
   default_scope { order(site_id: :asc, code: :asc) }
 
   scope :select_site, ->(site_id) { includes(:chapters).where(site_id: site_id) }
+
+  def target_url
+    case site.code
+    when /arcadia|arcadia-r18/
+      url = URI(site.url)
+      url.query = { act: 'dump', cate: 'all', all: code, n: 0, count: 1 }.to_query
+      url.to_s
+    when /hameln|hameln-r18/
+      URI.join(site.url, '/novel/' + code).to_s
+    when 'akatsuki'
+      URI.join(site.url, 'novel_id~' + code).to_s
+    when /narou|nocturne/
+      URI.join(site.url, code).to_s
+    else
+      raise 'site code error'
+    end
+  end
 end

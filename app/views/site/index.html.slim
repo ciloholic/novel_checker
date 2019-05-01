@@ -1,0 +1,6 @@
+container.container
+  aside.sidebar
+    = render partial: 'sidebar', locals: {sites: @sites}
+  main#main.main
+    .content
+    = render partial: 'novel', locals: {novel: @novel,  params: @params, menu: @menu}

@@ -1,0 +1,10 @@
+/ 新着
+- set_meta_tags title: 'TOP'
+.content__title
+  h3 新着 [ #{notifications.maximum(:updated_at).strftime('%Y-%m-%d %H:%M:%S')} ]
+ul.content__notification
+  - notifications.each do |notification|
+    li
+      a href="#{notification.target_url}" target="_blank" rel="noopener noreferrer"
+        span #{notification.title}
+        span #{notification.updated_at.to_s(:human)}
