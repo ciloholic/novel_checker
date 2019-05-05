@@ -18,4 +18,4 @@ production:
   <<: *default
   database:
   username:
-  password: <%= ENV['SS_WATCHER_DATABASE_PASSWORD'] %>
+  password: <%= ENV['NOVEL_CHECKER_DATABASE_PASSWORD'] %>
