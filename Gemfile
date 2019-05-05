@@ -20,6 +20,7 @@ gem 'rubocop-performance'
 gem 'sass-rails', '~> 5.0'
 gem 'slim-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'uglifier'
 gem 'webpacker'
 gem 'whenever', require: false
 

@@ -8,12 +8,12 @@
     "lint:sass": "stylelint --fix app/frontend/**/*.scss"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.8.1",
     "@rails/webpacker": "^4.0.2",
     "core-js": "3",
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.8.1",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",

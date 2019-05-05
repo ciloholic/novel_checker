@@ -231,8 +231,8 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.6)
-    rubocop-performance (1.1.0)
-      rubocop (>= 0.67.0)
+    rubocop-performance (1.2.0)
+      rubocop (>= 0.68.0)
     ruby-progressbar (1.10.0)
     ruby_dep (1.5.0)
     sass (3.7.4)
@@ -278,6 +278,8 @@ GEM
       thread_safe (~> 0.1)
     tzinfo-data (1.2019.1)
       tzinfo (>= 1.0.0)
+    uglifier (4.1.20)
+      execjs (>= 0.3.0, < 3)
     unicode-display_width (1.5.0)
     warden (1.2.8)
       rack (>= 2.0.6)
@@ -330,6 +332,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
+  uglifier
   web-console (>= 3.3.0)
   webpacker
   whenever
