@@ -2,8 +2,8 @@
 #
 # Table name: chapters
 #
-#  id         :bigint(8)        not null, primary key
-#  novel_id   :bigint(8)
+#  id         :bigint           not null, primary key
+#  novel_id   :bigint
 #  chapter    :integer          default(0), not null
 #  sub_title  :string(255)
 #  content    :text(16777215)

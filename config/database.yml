@@ -2,20 +2,16 @@ default: &default
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username:
-  password:
   host: localhost
+  database: <%= Rails.application.credentials.database %>
+  username: <%= Rails.application.credentials.username %>
+  password: <%= Rails.application.credentials.password %>
 
 development:
   <<: *default
-  database:
 
 test:
   <<: *default
-  database:
 
 production:
   <<: *default
-  database:
-  username:
-  password: <%= ENV['NOVEL_CHECKER_DATABASE_PASSWORD'] %>

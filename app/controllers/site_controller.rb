@@ -1,22 +1,23 @@
 # frozen_string_literal: true
 
 class SiteController < ApplicationController
+  include CommonActions
+  before_action :set_sites
+
   def top
-    @sites = Site.published.reorder('sites.sort asc, novels.code asc')
-    range = Time.current.ago(3.days).beginning_of_day..Time.current
-    @notifications = Novel.includes(:site).where(updated_at: range).limit(50).reorder('novels.updated_at desc')
+    @notifications = Novel.includes(:site).limit(50).reorder('novels.updated_at desc')
   end
 
   def index
     @params = permit_params
-    @sites = Site.published.reorder('sites.sort asc, novels.code asc')
+    render_404 unless code?
     @novel = Novel.includes(:site, :chapters).where(id: @params[:novel_id], sites: { code: @params[:code] }).first
     @menu = create_menu
   end
 
   def show
     @params = permit_params
-    @sites = Site.published.reorder('sites.sort asc, novels.code asc')
+    render_404 unless code?
     @chapter = Chapter.includes(novel: :site).where(novel_id: @params[:novel_id]).find(@params[:chapter_id])
     @menu = create_menu
   end
@@ -25,6 +26,10 @@ class SiteController < ApplicationController
 
   def permit_params
     params.permit(:code, :novel_id, :chapter_id)
+  end
+
+  def code?
+    Site.all_cached.exists?(code: @params[:code])
   end
 
   def create_menu

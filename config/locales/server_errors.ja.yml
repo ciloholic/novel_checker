@@ -1,0 +1,5 @@
+ja:
+  server_errors:
+    defaults:
+      status404: 'ページが見つかりません'
+      status500: 'サーバ内部でエラーが発生しました'

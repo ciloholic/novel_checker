@@ -7,4 +7,4 @@ ul.content__notification
     li
       a href="#{notification.target_url}" target="_blank" rel="noopener noreferrer"
         span #{notification.title}
-        span #{notification.updated_at.to_s(:human)}
+        span.date #{notification.updated_at.to_s(:human)}

@@ -1,7 +1,7 @@
 Time::DATE_FORMATS[:human] = lambda do |date|
   seconds = (Time.now - date).round;
   days = seconds / (60 * 60 * 24)
-  return "#{date.year}年#{date.month}月#{date.day}日" if days.positive?
+  return date.strftime('%Y年%m月%d日') if days.positive?
   hours = seconds / (60 * 60)
   return "#{hours}時間前" if hours.positive?
   minutes = seconds / 60

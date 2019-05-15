@@ -1,8 +1,21 @@
 @charset "UTF-8";
 
 @import "normalize.css";
-@import url("https://fonts.googleapis.com/css?family=M+PLUS+1p&subset=japanese");
 @import "variables";
+@import url("https://fonts.googleapis.com/css?family=M+PLUS+1p&subset=japanese");
+
+@mixin date {
+  &.date {
+    min-width: 12rem;
+    text-align: end;
+  }
+}
+
+@mixin text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 * {
   padding: 0;
@@ -47,8 +60,9 @@ span {
 .container {
   display: grid;
   grid-template-areas: "sidebar main";
-  grid-template-columns: 350px 1fr;
-  margin: 20px;
+  grid-template-columns: auto 70vw;
+  gap: 1rem;
+  margin: 1rem;
 }
 
 /* ----- sidebar ----- */
@@ -66,19 +80,26 @@ span {
   }
 
   &__novelTitle {
-    margin-bottom: 10px;
-    font-size: 10px;
+    margin-bottom: 1rem;
+    font-size: 1rem;
     border: 2px solid $base-border-color;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     li {
       a {
         display: block;
         padding: 5px 3px;
-        overflow: hidden;
         font-weight: normal;
         text-decoration: none;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+
+        @include text-overflow;
+
+        &:hover {
+          opacity: 0.5;
+        }
       }
 
       &:nth-child(even) {
@@ -95,7 +116,6 @@ span {
 /* ----- main ----- */
 .main {
   grid-area: main;
-  margin-left: 20px;
 }
 
 /* ----- menu ----- */
@@ -108,6 +128,8 @@ span {
   font-size: 1.4rem;
 
   li {
+    width: 8rem;
+    height: 4rem;
     background: $base-border-color;
 
     &:first-child {
@@ -123,16 +145,12 @@ span {
     }
 
     a {
-      display: block;
-      width: 100px;
-      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
       color: $site-title-color;
-      text-align: center;
-
-      .menu__notLink {
-        pointer-events: none;
-        cursor: none;
-      }
+      text-decoration: none;
     }
   }
 }
@@ -159,9 +177,8 @@ span {
         text-decoration: none;
 
         span {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+          @include text-overflow;
+          @include date;
         }
 
         &:hover {
@@ -210,9 +227,8 @@ span {
         text-decoration: none;
 
         span {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+          @include text-overflow;
+          @include date;
         }
 
         &:hover {
@@ -255,8 +271,6 @@ span {
       font-size: 1.2rem;
 
       li {
-        padding: 5px 0;
-
         a:hover {
           opacity: 1;
         }
@@ -271,8 +285,6 @@ span {
 
   /* ----- menu ----- */
   .menu {
-    padding: 10px 0;
-
     li {
       width: 75px;
     }

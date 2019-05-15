@@ -6,7 +6,8 @@ module.exports = {
     'stylelint-config-recess-order'
   ],
   rules: {
+    'at-rule-no-unknown': null,
     'no-descending-specificity': null,
-    'prettier/prettier': true
+    'prettier/prettier': true,
   }
 }

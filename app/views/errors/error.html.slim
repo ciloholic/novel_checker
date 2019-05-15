@@ -1,0 +1,6 @@
+container.container
+  aside.sidebar
+    = render partial: 'site/sidebar', locals: {sites: @sites}
+  main#main.main
+    .content
+      = render partial: 'errors/main', locals: {error: @error}

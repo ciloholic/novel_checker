@@ -4,8 +4,8 @@
 #
 # Table name: novels
 #
-#  id         :bigint(8)        not null, primary key
-#  site_id    :bigint(8)
+#  id         :bigint           not null, primary key
+#  site_id    :bigint
 #  code       :string(255)      not null
 #  title      :string(255)
 #  deleted_at :datetime
