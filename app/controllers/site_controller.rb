@@ -3,6 +3,10 @@
 class SiteController < ApplicationController
   include CommonActions
   before_action :set_sites
+  protect_from_forgery with: :exception
+
+  rescue_from ActionController::RoutingError, ActiveRecord::RecordNotFound, ActionView::MissingTemplate, with: :render_404
+  rescue_from Exception, with: :render_500
 
   def top
     @notifications = Novel.includes(:site).limit(50).reorder('novels.updated_at desc')
@@ -41,5 +45,15 @@ class SiteController < ApplicationController
     else
       { previous: nil, next: nil }
     end
+  end
+
+  def render_404
+    @error = { status: 404, message: t('server_errors.defaults.status404') }
+    render status: :not_found, template: 'errors/error'
+  end
+
+  def render_500
+    @error = { status: 500, message: t('server_errors.defaults.status500') }
+    render status: :internal_server_error, template: 'errors/error'
   end
 end
