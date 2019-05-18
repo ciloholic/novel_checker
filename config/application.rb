@@ -14,10 +14,6 @@ module NovelChecker
     config.i18n.default_locale = :ja
     config.i18n.fallbacks = [I18n.default_locale]
 
-    logger = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
