@@ -33,6 +33,8 @@ class Novel < ApplicationRecord
       URI.join(site.url, 'novel_id~' + code).to_s
     when /narou|nocturne/
       URI.join(site.url, code).to_s
+    when 'other'
+      ''
     else
       raise 'site code error'
     end
