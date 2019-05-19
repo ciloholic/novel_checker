@@ -212,7 +212,9 @@ span {
     font-size: 1.4rem;
 
     li {
-      height: 30px;
+      display: flex;
+      align-items: center;
+      min-height: 30px;
 
       span {
         margin: 0 5px;
@@ -227,7 +229,6 @@ span {
         text-decoration: none;
 
         span {
-          @include text-overflow;
           @include date;
         }
 
