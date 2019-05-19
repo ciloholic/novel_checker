@@ -3,4 +3,4 @@
   ul.sidebar__novelTitle
     - site.novels.each do |novel|
       li
-        a href="/#{site.code}/#{novel.id}#main" #{novel.title.truncate(50)}
+        a href="/#{site.code}/#{novel.id}#main" #{novel.replace_title}

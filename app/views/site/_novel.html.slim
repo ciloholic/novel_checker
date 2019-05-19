@@ -1,12 +1,12 @@
 / 目次
 - set_meta_tags title: novel.title
 .content__title
-  h3 #{novel.title}
+  h3 #{novel.replace_title}
 ul.content__chapter
   - novel.chapters.each do |chapter|
     li
       a href="/#{params[:code]}/#{params[:novel_id]}/#{chapter.id}#main"
-        == "#{chapter.sub_title}"
+        == "#{chapter.replace_sub_title}"
         - if !mobile?
           - if chapter.edit_at.present?
             span.date #{chapter.edit_at.to_s(:human)}
