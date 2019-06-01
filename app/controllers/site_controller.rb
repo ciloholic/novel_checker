@@ -9,7 +9,7 @@ class SiteController < ApplicationController
   rescue_from Exception, with: :render_500
 
   def top
-    @notifications = Novel.includes(:site).where.not(title: nil).limit(50).reorder('novels.updated_at desc')
+    @notifications = Novel.published.includes(:site).limit(50).reorder('novels.updated_at desc')
   end
 
   def index

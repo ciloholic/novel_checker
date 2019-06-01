@@ -20,6 +20,7 @@ class Novel < ApplicationRecord
   default_scope { order(site_id: :asc, code: :asc) }
 
   scope :select_site, ->(site_id) { includes(:chapters).where(site_id: site_id) }
+  scope :published, -> { where(deleted_at: nil).where.not(title: nil) }
 
   def target_url
     case site.code

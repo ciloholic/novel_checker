@@ -97,6 +97,10 @@ span {
 
         @include text-overflow;
 
+        &.deleted {
+          text-decoration: line-through;
+        }
+
         &:hover {
           opacity: 0.5;
         }

@@ -3,4 +3,7 @@
   ul.sidebar__novelTitle
     - site.novels.each do |novel|
       li
-        a href="/#{site.code}/#{novel.id}#main" #{novel.replace_title}
+        - if novel.deleted_at
+          a.deleted href="/#{site.code}/#{novel.id}#main" #{novel.replace_title}
+        - else
+          a href="/#{site.code}/#{novel.id}#main" #{novel.replace_title}
