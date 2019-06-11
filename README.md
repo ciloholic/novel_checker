@@ -35,10 +35,8 @@ bin/rake novel_scraping:all_site
 
 ```
 bin/rake novel_scraping:arcadia
-bin/rake novel_scraping:arcadia-r18
 bin/rake novel_scraping:narou
 bin/rake novel_scraping:hameln
 bin/rake novel_scraping:akatsuki
 bin/rake novel_scraping:nocturne
-bin/rake novel_scraping:hameln-r18
 ```
