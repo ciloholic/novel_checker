@@ -20,7 +20,7 @@ namespace :novel_scraping do
       def format_datetime_jp(text = nil, template = nil)
         return nil if text.blank? || template.blank?
 
-        Time.zone.strptime(text, template)
+        Time.zone.strptime(text, template).strftime('%Y/%m/%d %H:%M:%S')
       end
 
       def url_status(url)
@@ -99,8 +99,7 @@ namespace :novel_scraping do
       # 各サブタイトル毎にループ
       chapter_blocks.each do |chapter_block|
         chapter = novel.chapters.find_or_initialize_by(chapter: chapter_block[:chapter])
-        # 新規 or 直近1時間以内に更新有り
-        next unless chapter.new_record? || (chapter.edit_at || chapter.post_at) >= 1.hour.ago
+        next if (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
           html = Nokogiri::HTML(Kernel.open(chapter_block[:url]))
@@ -160,8 +159,7 @@ namespace :novel_scraping do
       # 各サブタイトル毎にループ
       chapter_blocks.each do |chapter_block|
         chapter = novel.chapters.find_or_initialize_by(chapter: chapter_block[:chapter])
-        # 新規 or 直近1時間以内に更新有り
-        next unless chapter.new_record? || (chapter.edit_at || chapter.post_at) >= 1.hour.ago
+        next if (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
           html = Nokogiri::HTML(Kernel.open(chapter_block[:url]))
@@ -221,8 +219,7 @@ namespace :novel_scraping do
       # 各サブタイトル毎にループ
       chapter_blocks.each do |chapter_block|
         chapter = novel.chapters.find_or_initialize_by(chapter: chapter_block[:chapter])
-        # 新規 or 直近1時間以内に更新有り
-        next unless chapter.new_record? || (chapter.edit_at || chapter.post_at) >= 1.hour.ago
+        next if (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
           html = Nokogiri::HTML(Kernel.open(chapter_block[:url]))
@@ -282,8 +279,7 @@ namespace :novel_scraping do
       # 各サブタイトル毎にループ
       chapter_blocks.each do |chapter_block|
         chapter = novel.chapters.find_or_initialize_by(chapter: chapter_block[:chapter])
-        # 新規 or 直近1時間以内に更新有り
-        next unless chapter.new_record? || (chapter.edit_at || chapter.post_at) >= 1.hour.ago
+        next if (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
           html = Nokogiri::HTML(Kernel.open(chapter_block[:url]))
@@ -343,8 +339,7 @@ namespace :novel_scraping do
       # 各サブタイトル毎にループ
       chapter_blocks.each do |chapter_block|
         chapter = novel.chapters.find_or_initialize_by(chapter: chapter_block[:chapter])
-        # 新規 or 直近1時間以内に更新有り
-        next unless chapter.new_record? || (chapter.edit_at || chapter.post_at) >= 1.hour.ago
+        next if (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
           html = Nokogiri::HTML(Kernel.open(chapter_block[:url]))
@@ -404,8 +399,7 @@ namespace :novel_scraping do
       # 各サブタイトル毎にループ
       chapter_blocks.each do |chapter_block|
         chapter = novel.chapters.find_or_initialize_by(chapter: chapter_block[:chapter])
-        # 新規 or 直近1時間以内に更新有り or 強制時以外はスキップ
-        next unless chapter.new_record? || (chapter.edit_at || chapter.post_at) >= 1.hour.ago
+        next if (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
           html = Nokogiri::HTML(Kernel.open(chapter_block[:url], 'Cookie' => 'over18=yes'))
@@ -465,8 +459,7 @@ namespace :novel_scraping do
       # 各サブタイトル毎にループ
       chapter_blocks.each do |chapter_block|
         chapter = novel.chapters.find_or_initialize_by(chapter: chapter_block[:chapter])
-        # 新規 or 直近1時間以内に更新有り or 強制時以外はスキップ
-        next unless chapter.new_record? || (chapter.edit_at || chapter.post_at) >= 1.hour.ago
+        next if (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
           html = Nokogiri::HTML(Kernel.open(chapter_block[:url], 'Cookie' => 'over18=off'))

@@ -15,7 +15,7 @@ class SiteController < ApplicationController
   def index
     @params = permit_params
     render_404 unless code?
-    @novel = Novel.includes(:site, :chapters).where(id: @params[:novel_id], sites: { code: @params[:code] }).first
+    @novel = Novel.includes(:site, :chapters).where(id: @params[:novel_id], sites: { code: @params[:code] }).reorder('chapters.chapter').first
     @menu = create_menu
   end
 
