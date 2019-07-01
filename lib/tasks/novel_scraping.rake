@@ -99,7 +99,7 @@ namespace :novel_scraping do
       # 各サブタイトル毎にループ
       chapter_blocks.each do |chapter_block|
         chapter = novel.chapters.find_or_initialize_by(chapter: chapter_block[:chapter])
-        next if (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
+        next if chapter.persisted? && (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
           html = Nokogiri::HTML(Kernel.open(chapter_block[:url]))
@@ -159,7 +159,7 @@ namespace :novel_scraping do
       # 各サブタイトル毎にループ
       chapter_blocks.each do |chapter_block|
         chapter = novel.chapters.find_or_initialize_by(chapter: chapter_block[:chapter])
-        next if (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
+        next if chapter.persisted? && (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
           html = Nokogiri::HTML(Kernel.open(chapter_block[:url]))
@@ -219,7 +219,7 @@ namespace :novel_scraping do
       # 各サブタイトル毎にループ
       chapter_blocks.each do |chapter_block|
         chapter = novel.chapters.find_or_initialize_by(chapter: chapter_block[:chapter])
-        next if (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
+        next if chapter.persisted? && (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
           html = Nokogiri::HTML(Kernel.open(chapter_block[:url]))
@@ -279,7 +279,7 @@ namespace :novel_scraping do
       # 各サブタイトル毎にループ
       chapter_blocks.each do |chapter_block|
         chapter = novel.chapters.find_or_initialize_by(chapter: chapter_block[:chapter])
-        next if (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
+        next if chapter.persisted? && (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
           html = Nokogiri::HTML(Kernel.open(chapter_block[:url]))
@@ -339,7 +339,7 @@ namespace :novel_scraping do
       # 各サブタイトル毎にループ
       chapter_blocks.each do |chapter_block|
         chapter = novel.chapters.find_or_initialize_by(chapter: chapter_block[:chapter])
-        next if (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
+        next if chapter.persisted? && (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
           html = Nokogiri::HTML(Kernel.open(chapter_block[:url]))
@@ -399,7 +399,7 @@ namespace :novel_scraping do
       # 各サブタイトル毎にループ
       chapter_blocks.each do |chapter_block|
         chapter = novel.chapters.find_or_initialize_by(chapter: chapter_block[:chapter])
-        next if (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
+        next if chapter.persisted? && (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
           html = Nokogiri::HTML(Kernel.open(chapter_block[:url], 'Cookie' => 'over18=yes'))
@@ -459,7 +459,7 @@ namespace :novel_scraping do
       # 各サブタイトル毎にループ
       chapter_blocks.each do |chapter_block|
         chapter = novel.chapters.find_or_initialize_by(chapter: chapter_block[:chapter])
-        next if (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
+        next if chapter.persisted? && (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
           html = Nokogiri::HTML(Kernel.open(chapter_block[:url], 'Cookie' => 'over18=off'))

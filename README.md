@@ -38,5 +38,4 @@ bin/rake novel_scraping:arcadia
 bin/rake novel_scraping:narou
 bin/rake novel_scraping:hameln
 bin/rake novel_scraping:akatsuki
-bin/rake novel_scraping:nocturne
 ```
