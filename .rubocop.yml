@@ -10,9 +10,6 @@ AllCops:
     - vendor/**/*
     - node_modules/**/*
 
-Rails:
-  Enabled: true
-
 #################### Style ####################
 
 Style/Documentation:
