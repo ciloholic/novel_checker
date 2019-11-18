@@ -1,8 +1,24 @@
+# docker-compose
+
+```
+docker exec -it novel_checker_web_1 bash
+docker exec -it novel_checker_db_1 bash
+```
+
+# development
+
+```
+bundle install --path vendor/bundle --jobs=4
+yarn
+bundle exec rake db:migrate
+bundle exec foreman start
+```
+
 # credentials
 
 ```
-EDITOR="vi" bin/rails credentials:edit
-bin/rails credentials:show
+EDITOR="vi" bundle exec rails credentials:edit
+bundle exec rails credentials:show
 ```
 
 # annotate
@@ -26,16 +42,16 @@ bundle exec foreman start
 # novel_scraping
 
 ```
-bin/rake novel_scraping:link_check
+bundle exec rake novel_scraping:link_check
 ```
 
 ```
-bin/rake novel_scraping:all_site
+bundle exec rake novel_scraping:all_site
 ```
 
 ```
-bin/rake novel_scraping:arcadia
-bin/rake novel_scraping:narou
-bin/rake novel_scraping:hameln
-bin/rake novel_scraping:akatsuki
+bundle exec rake novel_scraping:arcadia
+bundle exec rake novel_scraping:narou
+bundle exec rake novel_scraping:hameln
+bundle exec rake novel_scraping:akatsuki
 ```

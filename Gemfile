@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.3'
+ruby '2.6.5'
 
 gem 'active_decorator'
 gem 'activeadmin'
@@ -12,7 +12,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'coffee-rails'
 gem 'devise'
 gem 'meta-tags'
-gem 'mysql2', '>= 0.4.4', '< 0.6.0'
+gem 'mysql2', '~> 0.4.10'
 gem 'nokogiri'
 gem 'parallel'
 gem 'puma', '~> 3.11'
@@ -22,7 +22,6 @@ gem 'rubocop-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'slim-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'uglifier'
 gem 'webpacker'
 gem 'whenever', require: false
 
