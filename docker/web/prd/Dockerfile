@@ -1,6 +1,10 @@
 FROM ruby:2.6.5-alpine
 
 ENV LANG ja_JP.UTF-8
+ARG DB_HOST
+ARG DB_DATABASE
+ARG DB_USERNAME
+ARG DB_PASSWORD
 
 RUN apk add --update-cache --no-cache \
     build-base \

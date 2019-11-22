@@ -9,6 +9,7 @@ services:
     ports:
       - 3000:3000
       - 3035:3035
+    env_file: .env.dev
     environment:
       RAILS_SERVE_STATIC_FILES: 'true'
     depends_on:

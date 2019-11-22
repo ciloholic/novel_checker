@@ -1,6 +1,6 @@
 all: dev
-dev: build-dev up-dev
-prd: build-prd up-prd
+dev: prune build-dev up-dev ps-dev
+prd: prune build-prd up-prd ps-prd
 prune:
 	docker system prune -f
 # dev

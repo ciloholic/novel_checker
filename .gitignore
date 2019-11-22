@@ -18,3 +18,5 @@
 /node_modules
 /docker/db/storage/*
 !/docker/db/storage/.keep
+.env.dev
+.env.prd
