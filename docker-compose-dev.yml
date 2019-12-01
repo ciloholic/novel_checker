@@ -1,21 +1,29 @@
 version: '3.7'
 services:
   web:
-    build: 
+    container_name: web-container
+    build:
       context: .
       dockerfile: ./docker/web/dev/Dockerfile
+      args:
+        RUBY_VERSION: '2.6.5-slim-buster'
+        NODE_MAJOR: '11'
+        YARN_VERSION: '1.19.1'
+        BUNDLER_VERSION: '2.0.2'
+        RAILS_ENV: development
     volumes:
       - .:/novel_checker
     ports:
       - 3000:3000
-      - 3035:3035
-    env_file: .env.dev
+    env_file:
+      - ./docker/env/dev.env
     environment:
       RAILS_SERVE_STATIC_FILES: 'true'
+    tty: true
     depends_on:
       - db
-    tty: true
   db:
+    container_name: db-container
     build: ./docker/db
     volumes:
       - ./docker/db/storage:/var/lib/mysql

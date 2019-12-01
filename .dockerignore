@@ -1,5 +1,4 @@
 node_modules
 vendor
 docker
-.env.dev
-.env.prd
+.env

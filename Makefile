@@ -1,8 +1,10 @@
 all: dev
-dev: prune build-dev up-dev ps-dev
-prd: prune build-prd up-prd ps-prd
+dev: build-dev up-dev ps-dev
+prd: build-prd up-prd ps-prd
 prune:
 	docker system prune -f
+login:
+	docker exec -it web-container bash
 # dev
 reset-dev: clean-dev prune build-dev up-dev
 ps-dev:
@@ -10,6 +12,7 @@ ps-dev:
 up-dev:
 	docker-compose -f docker-compose-dev.yml up -d
 build-dev:
+	ln -sf ./docker/env/dev.env .env
 	docker-compose -f docker-compose-dev.yml build
 clean-dev:
 	docker-compose -f docker-compose-dev.yml down -v
@@ -20,6 +23,7 @@ ps-prd:
 up-prd:
 	docker-compose -f docker-compose-prd.yml up -d
 build-prd:
+	ln -sf ./docker/env/prd.env .env
 	docker-compose -f docker-compose-prd.yml build
 clean-prd:
 	docker-compose -f docker-compose-prd.yml down -v

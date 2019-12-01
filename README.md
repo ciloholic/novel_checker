@@ -1,17 +1,9 @@
-# docker-compose
-
-```
-docker exec -it novel_checker_web_1 bash
-docker exec -it novel_checker_db_1 bash
-```
-
 # development
 
 ```
 bundle install --path vendor/bundle --jobs=4
 yarn
 bundle exec rake db:migrate
-bundle exec foreman start
 ```
 
 # credentials
@@ -37,6 +29,13 @@ bundle exec rubocop -a
 
 ```
 bundle exec foreman start
+```
+
+# docker-compose
+
+```
+docker exec -it web-container bash
+docker exec -it db-container bash
 ```
 
 # novel_scraping
