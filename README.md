@@ -34,7 +34,7 @@ bundle exec foreman start
 # docker-compose
 
 ```
-docker exec -it web-container bash
+docker exec -it web-container ash
 docker exec -it db-container bash
 ```
 
