@@ -8,8 +8,7 @@ FROM ruby:2.6.5-alpine as builder
 
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
 COPY --from=node /opt/yarn-* /opt/yarn
-RUN ln -fs /usr/local/bin/node /usr/local/bin/nodejs && \
-    ln -fs /opt/yarn/bin/yarn /usr/local/bin/yarn
+RUN ln -fs /opt/yarn/bin/yarn /usr/local/bin/yarn
 RUN apk add --no-cache build-base libxml2-dev libxslt-dev mariadb-dev tzdata
 
 ENV APP_ROOT /novel_checker
@@ -48,6 +47,9 @@ WORKDIR $APP_ROOT
 
 COPY . $APP_ROOT
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
+COPY --from=node /opt/yarn-* /opt/yarn
 COPY --from=builder /usr/local/bundle /usr/local/bundle
 COPY --from=builder $APP_ROOT/public/assets $APP_ROOT/public/assets
 COPY --from=builder $APP_ROOT/public/packs $APP_ROOT/public/packs
+COPY --from=builder $APP_ROOT/node_modules $APP_ROOT/node_modules
+RUN ln -fs /opt/yarn/bin/yarn /usr/local/bin/yarn

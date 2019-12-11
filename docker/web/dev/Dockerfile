@@ -1,27 +1,22 @@
-ARG RUBY_VERSION
-FROM ruby:$RUBY_VERSION
+FROM node:12.13.1-alpine as node
 
-ARG NODE_MAJOR
-ARG YARN_VERSION
-ARG BUNDLER_VERSION
-RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends git curl gnupg2 && \
-    curl -sL https://deb.nodesource.com/setup_$NODE_MAJOR.x | bash - && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo 'deb http://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list.d/yarn.list && \
-    apt-get update -qq && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-    build-essential \
-    mariadb-client \
-    libmariadb-dev \
-    nodejs \
-    yarn=$YARN_VERSION-1 && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    truncate -s 0 /var/log/*log
+RUN apk add --no-cache bash curl && \
+    curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.19.1
 
-RUN mkdir /novel_checker
-WORKDIR /novel_checker
 
+FROM ruby:2.6.5-alpine
+
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+COPY --from=node /opt/yarn-* /opt/yarn
+RUN ln -fs /opt/yarn/bin/yarn /usr/local/bin/yarn
+RUN apk add --no-cache build-base libxml2-dev libxslt-dev mariadb-dev tzdata
+
+ENV APP_ROOT /novel_checker
+RUN mkdir $APP_ROOT
+WORKDIR $APP_ROOT
+
+ENV LANG ja_JP.UTF-8 \
+    BUNDLE_JOBS=4 \
+    BUNDLE_RETRY=3
 RUN gem update --system && \
-    gem install bundler:$BUNDLER_VERSION
+    gem install --no-document bundler:2.0.2

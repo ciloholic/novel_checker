@@ -1,50 +1,52 @@
-# development
+# Initial construction
+
+## Development
 
 ```
+make dev or reset-dev
+docker exec -it web-container ash
 bundle install --path vendor/bundle --jobs=4
 yarn
 bundle exec rake db:migrate
+bundle exec foreman start
 ```
 
-# credentials
+## Production
+
+```
+make prd or make reset-prd
+```
+
+# Credential
 
 ```
 EDITOR="vi" bundle exec rails credentials:edit
 bundle exec rails credentials:show
 ```
 
-# annotate
+# Annotate
 
 ```
 bundle exec annotate
 ```
 
-# rubocop
+# Rubocop
 
 ```
 bundle exec rubocop -a
 ```
 
-# webpack
-
-```
-bundle exec foreman start
-```
-
-# docker-compose
+# docker container login
 
 ```
 docker exec -it web-container ash
 docker exec -it db-container bash
 ```
 
-# novel_scraping
+# novel scraping
 
 ```
 bundle exec rake novel_scraping:link_check
-```
-
-```
 bundle exec rake novel_scraping:all_site
 ```
 

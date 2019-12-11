@@ -5,18 +5,12 @@ services:
     build:
       context: .
       dockerfile: ./docker/web/dev/Dockerfile
-      args:
-        RUBY_VERSION: '2.6.5-slim-buster'
-        NODE_MAJOR: '11'
-        YARN_VERSION: '1.19.1'
-        BUNDLER_VERSION: '2.0.2'
-        RAILS_ENV: development
-    volumes:
-      - .:/novel_checker
     ports:
       - 3000:3000
     env_file:
       - ./docker/env/dev.env
+    volumes:
+      - ./:/novel_checker:cached
     environment:
       RAILS_SERVE_STATIC_FILES: 'true'
     tty: true
@@ -26,7 +20,7 @@ services:
     container_name: db-container
     build: ./docker/db
     volumes:
-      - ./docker/db/storage:/var/lib/mysql
+      - ./docker/db/storage:/var/lib/mysql:cached
     ports:
       - 3306:3306
     environment:
