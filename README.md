@@ -20,7 +20,7 @@ make prd or make reset-prd
 # Credential
 
 ```
-EDITOR="vi" bundle exec rails credentials:edit
+bundle exec rails credentials:edit
 bundle exec rails credentials:show
 ```
 
@@ -36,14 +36,14 @@ bundle exec annotate
 bundle exec rubocop -a
 ```
 
-# docker container login
+# Docker container login
 
 ```
 docker exec -it web-container ash
 docker exec -it db-container bash
 ```
 
-# novel scraping
+# Novel scraping
 
 ```
 bundle exec rake novel_scraping:link_check
@@ -55,4 +55,12 @@ bundle exec rake novel_scraping:arcadia
 bundle exec rake novel_scraping:narou
 bundle exec rake novel_scraping:hameln
 bundle exec rake novel_scraping:akatsuki
+```
+
+# Amazon ECR push
+
+```
+cat ~/.aws/config
+export AWS_DEFAULT_PROFILE=ciloholic
+$(aws ecr get-login --no-include-email --region ap-northeast-1)
 ```

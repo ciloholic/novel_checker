@@ -13,6 +13,7 @@ services:
       - ./:/novel_checker:cached
     environment:
       RAILS_SERVE_STATIC_FILES: 'true'
+      EDITOR: 'vi'
     tty: true
     depends_on:
       - db

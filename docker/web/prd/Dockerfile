@@ -39,7 +39,8 @@ RUN RAILS_ENV=production bundle exec rake assets:precompile
 FROM ruby:2.6.5-alpine
 
 ENV LANG ja_JP.UTF-8
-RUN apk add --no-cache build-base libxml2-dev libxslt-dev mariadb-dev tzdata
+RUN apk add --no-cache build-base libxml2-dev libxslt-dev mariadb-dev tzdata && \
+    cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 ENV APP_ROOT /novel_checker
 RUN mkdir $APP_ROOT
