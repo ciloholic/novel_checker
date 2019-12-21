@@ -1,7 +1,7 @@
-FROM node:12.13.1-alpine as node
+FROM node:13.5-alpine as node
 
 RUN apk add --no-cache bash curl && \
-    curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.19.1
+    curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.21.1
 
 
 FROM ruby:2.6.5-alpine as builder
@@ -9,7 +9,8 @@ FROM ruby:2.6.5-alpine as builder
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
 COPY --from=node /opt/yarn-* /opt/yarn
 RUN ln -fs /opt/yarn/bin/yarn /usr/local/bin/yarn
-RUN apk add --no-cache build-base libxml2-dev libxslt-dev mariadb-dev tzdata
+RUN apk add --no-cache build-base libxml2-dev libxslt-dev mariadb-dev tzdata  && \
+    cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 ENV APP_ROOT /novel_checker
 RUN mkdir $APP_ROOT
@@ -25,8 +26,11 @@ ENV LANG ja_JP.UTF-8 \
     BUNDLE_RETRY=3
 RUN gem update --system && \
     gem install --no-document bundler:2.0.2
-RUN bundle install
-RUN yarn
+RUN bundle install --clean --frozen --without development test && \
+    rm -rf /usr/local/bundle/cache/*.gem && \
+    find /usr/local/bundle/gems/ -name '*.c' -delete && \
+    find /usr/local/bundle/gems/ -name '*.o' -delete
+RUN yarn --frozen-lockfile
 
 ARG DB_HOST
 ARG DB_DATABASE
@@ -41,16 +45,15 @@ FROM ruby:2.6.5-alpine
 ENV LANG ja_JP.UTF-8
 RUN apk add --no-cache build-base libxml2-dev libxslt-dev mariadb-dev tzdata && \
     cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+RUN gem update --system && \
+    gem install --no-document bundler:2.0.2
 
 ENV APP_ROOT /novel_checker
 RUN mkdir $APP_ROOT
 WORKDIR $APP_ROOT
 
-COPY . $APP_ROOT
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
 COPY --from=node /opt/yarn-* /opt/yarn
+COPY --from=builder $APP_ROOT $APP_ROOT
 COPY --from=builder /usr/local/bundle /usr/local/bundle
-COPY --from=builder $APP_ROOT/public/assets $APP_ROOT/public/assets
-COPY --from=builder $APP_ROOT/public/packs $APP_ROOT/public/packs
-COPY --from=builder $APP_ROOT/node_modules $APP_ROOT/node_modules
 RUN ln -fs /opt/yarn/bin/yarn /usr/local/bin/yarn

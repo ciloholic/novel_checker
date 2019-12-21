@@ -25,7 +25,7 @@ services:
     container_name: db-container
     build: ./docker/db
     volumes:
-      - ./docker/db/storage:/var/lib/mysql
+      - ./docker/db/storage:/var/lib/mysql:cached
     ports:
       - 3306:3306
     environment:
