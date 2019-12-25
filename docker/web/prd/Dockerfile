@@ -21,7 +21,8 @@ COPY ./Gemfile.lock $APP_ROOT
 COPY ./package.json $APP_ROOT
 COPY ./yarn.lock $APP_ROOT
 
-ENV LANG ja_JP.UTF-8 \
+ENV LANG=ja_JP.UTF-8 \
+    RAILS_ENV=production \
     BUNDLE_JOBS=4 \
     BUNDLE_RETRY=3
 RUN gem update --system && \
@@ -42,7 +43,8 @@ RUN RAILS_ENV=production bundle exec rake assets:precompile
 
 FROM ruby:2.6.5-alpine
 
-ENV LANG ja_JP.UTF-8
+ENV LANG=ja_JP.UTF-8 \
+    RAILS_SERVE_STATIC_FILES=true
 RUN apk add --no-cache build-base libxml2-dev libxslt-dev mariadb-dev tzdata && \
     cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 RUN gem update --system && \
@@ -57,3 +59,6 @@ COPY --from=node /opt/yarn-* /opt/yarn
 COPY --from=builder $APP_ROOT $APP_ROOT
 COPY --from=builder /usr/local/bundle /usr/local/bundle
 RUN ln -fs /opt/yarn/bin/yarn /usr/local/bin/yarn
+
+EXPOSE 80
+CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0", "-p", "80", "-e", "production"]

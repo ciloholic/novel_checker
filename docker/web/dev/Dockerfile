@@ -16,7 +16,7 @@ ENV APP_ROOT /novel_checker
 RUN mkdir $APP_ROOT
 WORKDIR $APP_ROOT
 
-ENV LANG ja_JP.UTF-8 \
+ENV LANG=ja_JP.UTF-8 \
     BUNDLE_JOBS=4 \
     BUNDLE_RETRY=3
 RUN gem update --system && \
