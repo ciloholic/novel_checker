@@ -4,8 +4,8 @@
 
 ```
 make dev or reset-dev
-docker exec -it web-container ash
-bundle install --path vendor/bundle --jobs=4
+docker exec -it web-container bash
+bundle install
 yarn
 bundle exec rake db:migrate
 bundle exec foreman start
@@ -39,7 +39,7 @@ bundle exec rubocop -a
 # Docker container login
 
 ```
-docker exec -it web-container ash
+docker exec -it web-container bash
 docker exec -it db-container bash
 ```
 
