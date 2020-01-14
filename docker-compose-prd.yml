@@ -5,11 +5,6 @@ services:
     build:
       context: .
       dockerfile: ./docker/web/prd/Dockerfile
-      args:
-        DB_HOST: $DB_HOST
-        DB_DATABASE: $DB_DATABASE
-        DB_USERNAME: $DB_USERNAME
-        DB_PASSWORD: $DB_PASSWORD
     ports:
       - 80:80
     env_file:

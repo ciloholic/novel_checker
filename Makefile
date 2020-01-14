@@ -22,7 +22,6 @@ ps-prd:
 up-prd:
 	docker-compose -f docker-compose-prd.yml up -d
 build-prd:
-	ln -sf ./docker/env/prd.env .env
 	docker-compose -f docker-compose-prd.yml build
 down-prd:
 	docker-compose -f docker-compose-prd.yml down -v

@@ -7,12 +7,9 @@ services:
       dockerfile: ./docker/web/dev/Dockerfile
     ports:
       - 3000:3000
-    env_file:
-      - ./docker/env/dev.env
     volumes:
       - ./:/novel_checker:cached
     environment:
-      RAILS_SERVE_STATIC_FILES: 'true'
       EDITOR: 'vi'
     tty: true
     depends_on:
