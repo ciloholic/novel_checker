@@ -8,4 +8,8 @@ module NovelDecorator
   def replace_sub_title
     sub_title.gsub(/　/, ' ')
   end
+
+  def string_restrict
+    self.site.restrict ? '[R-18]' : ''
+  end
 end

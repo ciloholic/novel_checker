@@ -7,6 +7,7 @@ services:
       dockerfile: ./docker/web/dev/Dockerfile
     ports:
       - 3000:3000
+      - 3035:3035
     volumes:
       - ./:/novel_checker:cached
     environment:
