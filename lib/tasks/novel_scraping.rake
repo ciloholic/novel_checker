@@ -4,6 +4,8 @@ require 'nokogiri'
 require 'open-uri'
 require 'parallel'
 
+USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36'
+
 namespace :novel_scraping do
   # rakeタスク内のみで使用するメソッド
   # https://qiita.com/hanachin_/items/6cf63dd3987a60e3d264
@@ -27,6 +29,12 @@ namespace :novel_scraping do
         OpenURI.open_uri(url).status[0].to_i == Rack::Utils::SYMBOL_TO_STATUS_CODE[:ok]
       rescue StandardError
         false
+      end
+
+      def self_open(url, option = nil)
+        options = { 'User-Agent' => USER_AGENT }
+        options.merge!(option) if option.present?
+        Kernel.open(url, options)
       end
 
       def random_sleep(min: 1, max: 4)
@@ -70,7 +78,7 @@ namespace :novel_scraping do
     Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
       begin
         url = novel.target_url
-        html = Nokogiri::HTML(Kernel.open(url))
+        html = Nokogiri::HTML(self_open(url))
       rescue StandardError
         next
       end
@@ -102,7 +110,7 @@ namespace :novel_scraping do
         next if chapter.persisted? && (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
-          html = Nokogiri::HTML(Kernel.open(chapter_block[:url]))
+          html = Nokogiri::HTML(self_open(chapter_block[:url]))
           random_sleep
           chapter_block.delete(:url)
           chapter_block[:content] = html.xpath('//blockquote/div').inner_html.gsub(/[\r\n]/, '')
@@ -130,7 +138,7 @@ namespace :novel_scraping do
     Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
       begin
         url = novel.target_url
-        html = Nokogiri::HTML(Kernel.open(url))
+        html = Nokogiri::HTML(self_open(url))
       rescue StandardError
         next
       end
@@ -162,7 +170,7 @@ namespace :novel_scraping do
         next if chapter.persisted? && (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
-          html = Nokogiri::HTML(Kernel.open(chapter_block[:url]))
+          html = Nokogiri::HTML(self_open(chapter_block[:url]))
           random_sleep
           chapter_block.delete(:url)
           chapter_block[:content] = html.xpath('//blockquote/div').inner_html.gsub(/[\r\n]/, '')
@@ -190,7 +198,7 @@ namespace :novel_scraping do
     Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
       begin
         url = novel.target_url
-        html = Nokogiri::HTML(Kernel.open(url))
+        html = Nokogiri::HTML(self_open(url))
       rescue StandardError
         next
       end
@@ -222,7 +230,7 @@ namespace :novel_scraping do
         next if chapter.persisted? && (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
-          html = Nokogiri::HTML(Kernel.open(chapter_block[:url]))
+          html = Nokogiri::HTML(self_open(chapter_block[:url]))
           random_sleep
           chapter_block.delete(:url)
           chapter_block[:content] = html.xpath('//*[@id="novel_honbun"]').inner_html.gsub(/[\r\n]/, '')
@@ -250,7 +258,7 @@ namespace :novel_scraping do
     Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
       begin
         url = novel.target_url
-        html = Nokogiri::HTML(Kernel.open(url))
+        html = Nokogiri::HTML(self_open(url))
       rescue StandardError
         next
       end
@@ -282,7 +290,7 @@ namespace :novel_scraping do
         next if chapter.persisted? && (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
-          html = Nokogiri::HTML(Kernel.open(chapter_block[:url]))
+          html = Nokogiri::HTML(self_open(chapter_block[:url]))
           random_sleep
           chapter_block.delete(:url)
           chapter_block[:content] = html.xpath('//*[@id="honbun"]').inner_html.gsub(/[\r\n]/, '')
@@ -310,7 +318,7 @@ namespace :novel_scraping do
     Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
       begin
         url = novel.target_url
-        html = Nokogiri::HTML(Kernel.open(url))
+        html = Nokogiri::HTML(self_open(url))
       rescue StandardError
         next
       end
@@ -342,7 +350,7 @@ namespace :novel_scraping do
         next if chapter.persisted? && (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
-          html = Nokogiri::HTML(Kernel.open(chapter_block[:url]))
+          html = Nokogiri::HTML(self_open(chapter_block[:url]))
           random_sleep
           chapter_block.delete(:url)
           chapter_block[:content] = html.xpath('//div[@class="body-novel"]').inner_html.gsub(/[\r\n]/, '')
@@ -370,7 +378,7 @@ namespace :novel_scraping do
     Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
       begin
         url = novel.target_url
-        html = Nokogiri::HTML(Kernel.open(url, 'Cookie' => 'over18=yes'))
+        html = Nokogiri::HTML(self_open(url, 'Cookie' => 'over18=yes'))
       rescue StandardError
         next
       end
@@ -402,7 +410,7 @@ namespace :novel_scraping do
         next if chapter.persisted? && (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
-          html = Nokogiri::HTML(Kernel.open(chapter_block[:url], 'Cookie' => 'over18=yes'))
+          html = Nokogiri::HTML(self_open(chapter_block[:url], 'Cookie' => 'over18=yes'))
           random_sleep
           chapter_block.delete(:url)
           chapter_block[:content] = html.xpath('//*[@id="novel_honbun"]').inner_html.gsub(/[\r\n]/, '')
@@ -430,7 +438,7 @@ namespace :novel_scraping do
     Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
       begin
         url = novel.target_url
-        html = Nokogiri::HTML(Kernel.open(url, 'Cookie' => 'over18=off'))
+        html = Nokogiri::HTML(self_open(url, 'Cookie' => 'over18=off'))
       rescue StandardError
         next
       end
@@ -462,7 +470,7 @@ namespace :novel_scraping do
         next if chapter.persisted? && (chapter.edit_at || chapter.post_at).strftime('%Y/%m/%d %H:%M:%S') == (chapter_block[:edit_at] || chapter_block[:post_at])
 
         begin
-          html = Nokogiri::HTML(Kernel.open(chapter_block[:url], 'Cookie' => 'over18=off'))
+          html = Nokogiri::HTML(self_open(chapter_block[:url], 'Cookie' => 'over18=off'))
           random_sleep
           chapter_block.delete(:url)
           chapter_block[:content] = html.xpath('//*[@id="honbun"]').inner_html.gsub(/[\r\n]/, '')

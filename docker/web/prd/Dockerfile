@@ -26,7 +26,7 @@ ENV LANG=ja_JP.UTF-8 \
     BUNDLE_JOBS=4 \
     BUNDLE_RETRY=3
 RUN gem update --system && \
-    gem install --no-document bundler:2.0.2
+    gem install --no-document bundler:2.1.4
 RUN bundle install --clean --frozen --without development test && \
     rm -rf /usr/local/bundle/cache/*.gem && \
     find /usr/local/bundle/gems/ -name '*.c' -delete && \
@@ -48,7 +48,7 @@ ENV LANG=ja_JP.UTF-8 \
 RUN apk add --no-cache build-base libxml2-dev libxslt-dev mariadb-dev tzdata && \
     cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 RUN gem update --system && \
-    gem install --no-document bundler:2.0.2
+    gem install --no-document bundler:2.1.4
 
 ENV APP_ROOT /novel_checker
 RUN mkdir $APP_ROOT

@@ -10,6 +10,6 @@ module NovelDecorator
   end
 
   def string_restrict
-    self.site.restrict ? '[R-18]' : ''
+    site.restrict ? '[R-18]' : ''
   end
 end
