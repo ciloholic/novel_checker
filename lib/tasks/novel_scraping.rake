@@ -256,7 +256,7 @@ namespace :novel_scraping do
       end
       random_sleep
       # メインタイトルの保存
-      main_title = html.xpath('//*[@id="maind"]/div[1]/span').text
+      main_title = html.xpath('//*[@id="maind"]/div[1]/span[1]').text
       next if main_title.empty?
 
       novel.title = main_title
