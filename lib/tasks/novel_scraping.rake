@@ -276,9 +276,11 @@ namespace :novel_scraping do
         next if chapter.xpath('td[1]/a/@href').text.blank?
 
         full_url = URI.join(url, '/novel/' + novel.code + '/' + chapter.xpath('td[1]/a/@href').text).to_s
+        post_at = chapter.xpath('td[2]/nobr/text()').text.gsub(/\(.\)/, '')
+        post_at = chapter.xpath('td[2]/nobr/time/text()').text.gsub(/\(.\)/, '') unless post_at.present?
         chapter_blocks << {
           sub_title: chapter.xpath('td[1]/a').text,
-          post_at: format_datetime_jp(chapter.xpath('td[2]/nobr/text()').text.gsub(/\(.\)/, ''), "%Y年%m月%d日 %H:%M"),
+          post_at: format_datetime_jp(post_at, "%Y年%m月%d日 %H:%M"),
           edit_at: format_datetime_jp(chapter.xpath('td[2]/nobr/span/@title').text.gsub(/\(.\)/, ''), "%Y年%m月%d日 %H:%M"),
           url: full_url,
           chapter: full_url.split('/').last.to_i
@@ -444,7 +446,7 @@ namespace :novel_scraping do
       end
       random_sleep
       # メインタイトルの保存
-      main_title = html.xpath('//*[@id="maind"]/div[1]/span').text
+      main_title = html.xpath('//*[@id="maind"]/div[1]/span[1]').text
       next if main_title.empty?
 
       novel.title = main_title
@@ -456,9 +458,11 @@ namespace :novel_scraping do
         next if chapter.xpath('td[1]/a/@href').text.blank?
 
         full_url = URI.join(url, '/novel/' + novel.code + '/' + chapter.xpath('td[1]/a/@href').text).to_s
+        post_at = chapter.xpath('td[2]/nobr/text()').text.gsub(/\(.\)/, '')
+        post_at = chapter.xpath('td[2]/nobr/time/text()').text.gsub(/\(.\)/, '') unless post_at.present?
         chapter_blocks << {
           sub_title: chapter.xpath('td[1]/a').text,
-          post_at: format_datetime_jp(chapter.xpath('td[2]/nobr/text()').text.gsub(/\(.\)/, ''), "%Y年%m月%d日 %H:%M"),
+          post_at: format_datetime_jp(post_at, "%Y年%m月%d日 %H:%M"),
           edit_at: format_datetime_jp(chapter.xpath('td[2]/nobr/span/@title').text.gsub(/\(.\)/, ''), "%Y年%m月%d日 %H:%M"),
           url: full_url,
           chapter: full_url.split('/').last.to_i
