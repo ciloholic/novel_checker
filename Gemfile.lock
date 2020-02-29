@@ -189,8 +189,8 @@ GEM
       ast (~> 2.4.0)
     polyamorous (2.3.2)
       activerecord (>= 5.2.1)
-    puma (3.12.2)
-    puma (3.12.2-java)
+    puma (3.12.3)
+    puma (3.12.3-java)
     rack (2.2.2)
     rack-proxy (0.6.5)
       rack
