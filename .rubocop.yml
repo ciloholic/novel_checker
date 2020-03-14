@@ -27,6 +27,15 @@ Style/ClassAndModuleChildren:
 Style/AsciiComments:
   Enabled: false
 
+Style/HashEachMethods:
+  Enabled: false
+
+Style/HashTransformKeys:
+  Enabled: false
+
+Style/HashTransformValues:
+  Enabled: false
+
 #################### Lint ####################
 
 Lint/AmbiguousBlockAssociation:
