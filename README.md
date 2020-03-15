@@ -8,6 +8,7 @@ docker exec -it web-container bash
 bundle install
 yarn
 bundle exec rake db:migrate
+bundle exec rails assets/precompile assets:clean
 bundle exec foreman start
 ```
 
