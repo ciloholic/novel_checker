@@ -46,6 +46,8 @@ Lint/AmbiguousBlockAssociation:
 
 Metrics/AbcSize:
   Max: 30
+  Exclude:
+    - lib/tasks/*
 
 Metrics/BlockLength:
   Exclude:
@@ -53,8 +55,17 @@ Metrics/BlockLength:
 
 Metrics/MethodLength:
   Max: 20
+  Exclude:
+    - lib/tasks/*
+
+Metrics/PerceivedComplexity:
+  Max: 10
 
 #################### Layout ####################
 
 Layout/LineLength:
   Enabled: false
+
+Layout/EndAlignment:
+  Exclude:
+  - lib/tasks/*
