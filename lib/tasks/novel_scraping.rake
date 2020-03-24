@@ -72,9 +72,9 @@ namespace :novel_scraping do
 
           status_code = url_status(url)
           if !status_code && novel.deleted_at.blank?
-            novel.update(deleted_at: Time.zone.now)
+            novel.update_column(:deleted_at, Time.zone.now)
           elsif status_code && novel.deleted_at.present?
-            novel.update(deleted_at: nil)
+            novel.update_column(:deleted_at, nil)
           end
           random_sleep
         end
