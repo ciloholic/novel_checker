@@ -19,5 +19,5 @@ class Site < ApplicationRecord
   has_many :novels, dependent: :destroy
   accepts_nested_attributes_for :novels, allow_destroy: true
   default_scope { order(sort: :asc) }
-  scope :published, -> { includes(:novels).where.not(novels: { title: nil }) }
+  scope :published, -> { includes(:novels).where.not(novels: { title: '' }) }
 end
