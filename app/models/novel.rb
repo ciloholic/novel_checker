@@ -29,9 +29,9 @@ class Novel < ApplicationRecord
       url.query = { act: 'dump', cate: 'all', all: code, n: 0, count: 1 }.to_query
       url.to_s
     when /hameln|hameln-r18/
-      URI.join(site.url, '/novel/' + code).to_s
+      URI.join(site.url, "/novel/#{code}/").to_s
     when 'akatsuki'
-      URI.join(site.url, 'novel_id~' + code).to_s
+      URI.join(site.url, "novel_id~#{code}").to_s
     when /narou|nocturne/
       URI.join(site.url, code).to_s
     when 'other'
