@@ -4,7 +4,7 @@ prd: build-prd up-prd ps-prd
 prune:
 	docker system prune -f
 login:
-	docker exec -it web-container bash
+	docker exec -it novel-checker-web-container bash
 # dev
 reset-dev: down-dev prune build-dev up-dev ps-dev
 ps-dev:

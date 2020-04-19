@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   web:
-    container_name: web-container
+    container_name: novel-checker-web-container
     build:
       context: .
       dockerfile: ./docker/web/dev/Dockerfile
@@ -16,7 +16,7 @@ services:
     depends_on:
       - db
   db:
-    container_name: db-container
+    container_name: novel-checker-db-container
     build: ./docker/db
     volumes:
       - ./docker/db/storage:/var/lib/mysql:cached
