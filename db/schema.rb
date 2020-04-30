@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_14_153718) do
+ActiveRecord::Schema.define(version: 2020_04_30_135800) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "namespace"
@@ -61,6 +61,12 @@ ActiveRecord::Schema.define(version: 2019_11_14_153718) do
     t.index ["site_id"], name: "index_novels_on_site_id"
   end
 
+  create_table "scraping_statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "site_id"
+    t.datetime "executing_time"
+    t.index ["site_id"], name: "index_scraping_statuses_on_site_id"
+  end
+
   create_table "sites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "code", null: false
@@ -73,4 +79,5 @@ ActiveRecord::Schema.define(version: 2019_11_14_153718) do
 
   add_foreign_key "chapters", "novels"
   add_foreign_key "novels", "sites"
+  add_foreign_key "scraping_statuses", "sites"
 end

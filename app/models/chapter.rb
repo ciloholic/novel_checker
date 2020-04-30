@@ -17,6 +17,7 @@
 
 class Chapter < ApplicationRecord
   belongs_to :novel, touch: true
+
   default_scope { order(novel_id: :asc, chapter: :asc) }
 
   def self.previous(novel_id, chapter)

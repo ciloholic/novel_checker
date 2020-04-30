@@ -36,11 +36,20 @@ Style/HashTransformKeys:
 Style/HashTransformValues:
   Enabled: false
 
+Style/ExponentialNotation:
+  Enabled: true
+
 #################### Lint ####################
 
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - lib/tasks/*
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
 
 #################### Metrics ####################
 
@@ -69,3 +78,6 @@ Layout/LineLength:
 Layout/EndAlignment:
   Exclude:
   - lib/tasks/*
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true

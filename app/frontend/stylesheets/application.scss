@@ -161,6 +161,14 @@ span {
 
 /* ----- content ----- */
 .content {
+  &__status {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background: $base-content-background;
+    padding: 5px;
+  }
+
   &__title {
     margin-bottom: 10px;
     font-size: 1.5rem;

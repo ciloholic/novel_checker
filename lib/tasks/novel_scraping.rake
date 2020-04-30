@@ -15,11 +15,12 @@ namespace :novel_scraping do
         site = Site.find_by!(code: code)
         Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
           begin
-            novel.title, chapter_blocks = if novel.title.empty?
-                                            NovelScraping.access(novel.target_url)
-                                          else
-                                            NovelScraping.access(novel.target_url, from: novel.chapters.maximum(:edit_at) + 1)
-            end
+            novel.title, chapter_blocks =
+              if novel.title.empty?
+                NovelScraping.access(novel.target_url)
+              else
+                NovelScraping.access(novel.target_url, from: novel.chapters.maximum(:edit_at) + 1)
+              end
           rescue StandardError
             next
           end
@@ -39,6 +40,8 @@ namespace :novel_scraping do
             end
           end
         end
+        scraping_status = ScrapingStatus.find_or_initialize_by(site_id: site.id)
+        scraping_status.update!(executing_time: Time.zone.now)
       end
 
       def url_status(url)

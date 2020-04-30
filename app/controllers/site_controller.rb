@@ -10,6 +10,7 @@ class SiteController < ApplicationController
 
   def top
     @notifications = Novel.published.includes(:site).limit(100).reorder('novels.updated_at desc')
+    @scraping_statuses = ScrapingStatus.includes(:site).all
   end
 
   def index

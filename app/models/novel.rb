@@ -17,8 +17,8 @@ class Novel < ApplicationRecord
   belongs_to :site, touch: true
   has_many :chapters, dependent: :destroy
   accepts_nested_attributes_for :chapters, allow_destroy: true
-  default_scope { order(site_id: :asc, code: :asc) }
 
+  default_scope { order(site_id: :asc, code: :asc) }
   scope :select_site, ->(site_id) { includes(:chapters).where(site_id: site_id) }
   scope :published, -> { where(deleted_at: nil).where.not(title: nil) }
 
