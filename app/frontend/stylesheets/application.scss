@@ -163,10 +163,21 @@ span {
 .content {
   &__status {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
     background: $base-content-background;
     padding: 5px;
+    font-size: 1.2rem;
+
+    & .status-child {
+      min-width: 230px;
+      display: flex;
+      justify-content: space-between;
+
+      &--margin {
+        margin-right: 15px;
+      }
+    }
   }
 
   &__title {
@@ -305,6 +316,18 @@ span {
 
   /* ----- content ----- */
   .content {
+    &__status {
+      font-size: 1rem;
+
+      & .status-child {
+        min-width: 200px;
+
+        &--margin {
+          margin: 0;
+        }
+      }
+    }
+
     &__notification {
       li a:hover {
         opacity: 1;
