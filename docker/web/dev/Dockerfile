@@ -1,4 +1,4 @@
-FROM node:13.5-alpine as node
+FROM node:12.18-alpine as node
 
 RUN apk add --no-cache bash curl && \
     curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.22.4

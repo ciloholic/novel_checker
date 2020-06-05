@@ -7,8 +7,6 @@ services:
       dockerfile: ./docker/web/prd/Dockerfile
     ports:
       - 80:80
-    env_file:
-      - ./docker/env/prd.env
     tty: true
     depends_on:
       - db
