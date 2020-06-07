@@ -3,7 +3,6 @@
   ul.sidebar__novelTitle
     - site.novels.each do |novel|
       li
-        - if novel.deleted_at
-          a.deleted href="/#{site.code}/#{novel.id}#main" #{novel.replace_title}
-        - else
-          a href="/#{site.code}/#{novel.id}#main" #{novel.replace_title}
+        - deleted = novel.deleted_at.present? ? 'deleted' : ''
+        - non_target = novel.non_target ? '[×] ' : ''
+        a class="#{deleted}" href="/#{site.code}/#{novel.id}#main" #{non_target}#{novel.replace_title}

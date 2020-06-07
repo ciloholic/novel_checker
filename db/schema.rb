@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_30_135800) do
+ActiveRecord::Schema.define(version: 2020_06_07_135723) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "namespace"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_135800) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "non_target", default: false, null: false
     t.index ["site_id", "code"], name: "index_novels_on_site_id_and_code", unique: true
     t.index ["site_id"], name: "index_novels_on_site_id"
   end

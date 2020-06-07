@@ -1,13 +1,7 @@
 / 新着
 - set_meta_tags title: 'TOP'
-ul.content__status
-  - scraping_statuses.each do |scraping_status|
-    li.status-child
-      span #{scraping_status.site.name}
-      span.status-child--margin
-        | [#{scraping_status.executing_time.to_s(:human)}]
 .content__title
-  h3 新着 [ #{notifications.maximum(:updated_at).strftime('%Y-%m-%d %H:%M:%S')} ]
+  h3 新着 [ #{scraping_statuses.maximum(:executing_time).to_s(:human)} ]
 ul.content__notification
   - notifications.each do |notification|
     - if notification.title.present?

@@ -13,7 +13,7 @@ namespace :novel_scraping do
     refine(top_level.singleton_class) do
       def scraping(code)
         site = Site.find_by!(code: code)
-        Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
+        Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil, non_target: 0).each do |novel|
           begin
             novel.title, chapter_blocks =
               if novel.title.empty?
