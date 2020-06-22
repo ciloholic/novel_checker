@@ -8,13 +8,14 @@ ActiveAdmin.register Novel do
     column :site
     column :code
     column :title
+    column :non_target
     column :deleted_at
     actions
   end
 
   controller do
     def find_collection(options = {})
-      super.reorder(site_id: :asc, code: :asc)
+      super.reorder(site_id: :asc, non_target: :asc, code: :asc)
     end
   end
 end
