@@ -9,6 +9,10 @@ every 1.day, at: "#{rand(0...3).to_s.rjust(2, '0')}:#{rand(1...59).to_s.rjust(2,
   rake 'novel_scraping:link_check'
 end
 
+every '0 0 * * 0' do
+  rake 'novel_scraping:no_renewal_check'
+end
+
 every '0 0 * * *' do
   command 'cd /var/www/novel_checker && bundle exec whenever -i'
 end

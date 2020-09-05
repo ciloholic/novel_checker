@@ -65,6 +65,17 @@ namespace :novel_scraping do
     end
   end
 
+  desc 'No renewal for one month'
+  task no_renewal_check: :environment do
+    Parallel.each(Site.where.not(code: 'other'), in_processes: 6) do |site|
+      ActiveRecord::Base.connection_pool.with_connection do
+        Novel.where(site_id: site.id, deleted_at: nil).where.not(updated_at: 1.month.ago..Float::INFINITY).each do |novel|
+          novel.update_column(:deleted_at, Time.zone.now)
+        end
+      end
+    end
+  end
+
   desc 'Check for broken links'
   task link_check: :environment do
     Parallel.each(Site.where.not(code: 'other'), in_processes: 6) do |site|

@@ -48,6 +48,7 @@ docker exec -it db-container bash
 
 ```
 bundle exec rake novel_scraping:link_check
+bundle exec rake novel_scraping:no_renewal_check
 bundle exec rake novel_scraping:all_site
 ```
 
