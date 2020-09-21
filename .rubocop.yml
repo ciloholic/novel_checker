@@ -90,7 +90,7 @@ Metrics/MethodLength:
     - lib/tasks/*
 
 Metrics/PerceivedComplexity:
-  Max: 10
+  Max: 15
 
 #################### Layout ####################
 

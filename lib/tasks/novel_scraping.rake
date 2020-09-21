@@ -11,9 +11,14 @@ namespace :novel_scraping do
   top_level = self
   using Module.new {
     refine(top_level.singleton_class) do
-      def scraping(code)
+      def scraping(code, force = false)
         site = Site.find_by!(code: code)
-        Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil, non_target: 0).each do |novel|
+        Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
+          unless novel.non_target || force
+            Rails.logger.info(format('[%s] skip non target', Time.zone.now.strftime('%Y/%m/%d %H:%M:%S')))
+            next
+          end
+
           begin
             novel.title, chapter_blocks =
               if novel.title.empty?
@@ -57,17 +62,18 @@ namespace :novel_scraping do
   }
 
   desc 'Scraping the site'
-  task all_site: :environment do
-    Parallel.each(Site.where.not(code: 'other'), in_processes: 6) do |site|
+  task :all_site, ['force'] => :environment do |_, args|
+    Parallel.each(Site.where.not(code: 'other'), in_processes: 2) do |site|
       ActiveRecord::Base.connection_pool.with_connection do
-        Rake::Task["novel_scraping:#{site.code}"].execute
+        Rake::Task["novel_scraping:#{site.code}"]
+          .execute(force: ActiveRecord::Type::Boolean.new.cast(args['force']).present?)
       end
     end
   end
 
   desc 'No renewal for one month'
   task no_renewal_check: :environment do
-    Parallel.each(Site.where.not(code: 'other'), in_processes: 6) do |site|
+    Parallel.each(Site.where.not(code: 'other'), in_processes: 2) do |site|
       ActiveRecord::Base.connection_pool.with_connection do
         Novel.where(site_id: site.id, deleted_at: nil, non_target: 0).where.not(updated_at: 1.month.ago..Float::INFINITY).each do |novel|
           novel.update_column(:non_target, 1)
@@ -78,7 +84,7 @@ namespace :novel_scraping do
 
   desc 'Check for broken links'
   task link_check: :environment do
-    Parallel.each(Site.where.not(code: 'other'), in_processes: 6) do |site|
+    Parallel.each(Site.where.not(code: 'other'), in_processes: 2) do |site|
       ActiveRecord::Base.connection_pool.with_connection do
         Novel.where(site_id: site.id).each do |novel|
           url = novel.target_url
@@ -97,37 +103,37 @@ namespace :novel_scraping do
   end
 
   desc 'Scraping the arcadia'
-  task arcadia: :environment do
-    scraping('arcadia')
+  task :arcadia, ['force'] => :environment do |_, args|
+    scraping('arcadia', args[:force])
   end
 
   desc 'Scraping the arcadia-r18'
-  task 'arcadia-r18': :environment do
-    scraping('arcadia-r18')
+  task :'arcadia-r18', ['force'] => :environment do |_, args|
+    scraping('arcadia-r18', args[:force])
   end
 
   desc 'Scraping the narou'
-  task narou: :environment do
-    scraping('narou')
+  task :narou, ['force'] => :environment do |_, args|
+    scraping('narou', args[:force])
   end
 
   desc 'Scraping the hameln'
-  task hameln: :environment do
-    scraping('hameln')
+  task :hameln, ['force'] => :environment do |_, args|
+    scraping('hameln', args[:force])
   end
 
   desc 'Scraping the akatsuki'
-  task akatsuki: :environment do
-    scraping('akatsuki')
+  task :akatsuki, ['force'] => :environment do |_, args|
+    scraping('akatsuki', args[:force])
   end
 
   desc 'Scraping the nocturne'
-  task nocturne: :environment do
-    scraping('nocturne')
+  task :nocturne, ['force'] => :environment do |_, args|
+    scraping('nocturne', args[:force])
   end
 
   desc 'Scraping the hameln-r18'
-  task 'hameln-r18': :environment do
-    scraping('hameln-r18')
+  task :'hameln-r18', ['force'] => :environment do |_, args|
+    scraping('hameln-r18', args[:force])
   end
 end

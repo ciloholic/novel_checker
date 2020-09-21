@@ -34,7 +34,7 @@ bundle exec annotate
 # Rubocop
 
 ```
-bundle exec rubocop -a
+bundle exec rubocop -A
 ```
 
 # Docker container login

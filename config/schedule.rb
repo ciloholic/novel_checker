@@ -1,6 +1,14 @@
+require File.expand_path('../config/environment', __dir__)
+
 set :job_template, "/bin/bash -l -i -c ':job'"
 
 hhmm = [*0..23].map { |hh| "#{hh.to_s.rjust(2, '0')}:#{rand(1...59).to_s.rjust(2, '0')}" }
+if Time.zone.now.day == 1
+  hhmm.pop
+  every 1.day, at: '23:00' do
+    rake 'novel_scraping:all_site[true]'
+  end
+end
 every 1.day, at: hhmm do
   rake 'novel_scraping:all_site'
 end
