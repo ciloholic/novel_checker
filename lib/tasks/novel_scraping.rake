@@ -14,7 +14,7 @@ namespace :novel_scraping do
       def scraping(code, force = false)
         site = Site.find_by!(code: code)
         Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
-          unless novel.non_target || force
+          unless !novel.non_target || force
             Rails.logger.info(format('[%s] skip non target', Time.zone.now.strftime('%Y/%m/%d %H:%M:%S')))
             next
           end
