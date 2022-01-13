@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateNovels < ActiveRecord::Migration[5.2]
   def up
     create_table :novels do |t|
@@ -7,7 +9,7 @@ class CreateNovels < ActiveRecord::Migration[5.2]
       t.datetime :deleted_at
       t.timestamps
 
-      t.index [:site_id, :code], unique: true
+      t.index %i[site_id code], unique: true
     end
   end
 

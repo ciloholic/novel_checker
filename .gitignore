@@ -20,4 +20,4 @@
 !/docker/db/storage/.keep
 /docker/env/*
 !/docker/env/sample.env
-.env
+.env.*

@@ -11,7 +11,7 @@ namespace :novel_scraping do
   top_level = self
   using Module.new {
     refine(top_level.singleton_class) do
-      def scraping(code, force = false)
+      def scraping(code, force: false)
         site = Site.find_by!(code: code)
         Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
           unless !novel.non_target || force

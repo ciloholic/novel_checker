@@ -1,25 +1,21 @@
 default: &default
-  adapter: mysql2
-  encoding: utf8mb4
+  adapter: postgresql
+  template: template0
+  encoding: utf8
+  collation: ja_JP.UTF-8
+  ctype: ja_JP.UTF-8
   pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
+  timeout: 5000
+  username: <%= ENV.fetch('DATABASE_USER') %>
+  password: <%= ENV.fetch('DATABASE_PASSWORD') %>
+  database: <%= ENV.fetch('DATABASE_NAME') %>
+  host: <%= ENV.fetch('DATABASE_HOST') %>
 
 development:
   <<: *default
-  host: <%= Rails.application.credentials.development[:host] %>
-  database: <%= Rails.application.credentials.development[:database] %>
-  username: <%= Rails.application.credentials.development[:username] %>
-  password: <%= Rails.application.credentials.development[:password] %>
 
 production:
   <<: *default
-  host: <%= Rails.application.credentials.production[:host] %>
-  database: <%= Rails.application.credentials.production[:database] %>
-  username: <%= Rails.application.credentials.production[:username] %>
-  password: <%= Rails.application.credentials.production[:password] %>
 
 test:
   <<: *default
-  host: <%= Rails.application.credentials.test[:host] %>
-  database: <%= Rails.application.credentials.test[:database] %>
-  username: <%= Rails.application.credentials.test[:username] %>
-  password: <%= Rails.application.credentials.test[:password] %>

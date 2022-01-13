@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddNontargetNovel < ActiveRecord::Migration[6.0]
   def up
     add_column :novels, :non_target, :boolean, null: false, default: false

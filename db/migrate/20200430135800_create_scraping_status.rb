@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateScrapingStatus < ActiveRecord::Migration[6.0]
   def up
     create_table :scraping_statuses do |t|
