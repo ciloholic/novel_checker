@@ -1,6 +1,7 @@
 require: rubocop-performance
 
 AllCops:
+  NewCops: enable
   Exclude:
     - config.ru
     - Rakefile

@@ -5,8 +5,8 @@ class SiteController < ApplicationController
   before_action :set_sites
   protect_from_forgery with: :exception
 
-  rescue_from ActionController::RoutingError, ActiveRecord::RecordNotFound, ActionView::MissingTemplate, with: :render_404
-  rescue_from Exception, with: :render_500
+  rescue_from ActionController::RoutingError, ActiveRecord::RecordNotFound, ActionView::MissingTemplate, with: :render404
+  rescue_from Exception, with: :render500
 
   def top
     @notifications = Novel.published.includes(:site).limit(100).reorder('novels.updated_at desc')
@@ -15,14 +15,14 @@ class SiteController < ApplicationController
 
   def index
     @params = permit_params
-    render_404 unless code?
+    render404 unless code?
     @novel = Novel.includes(:site, :chapters).where(id: @params[:novel_id], sites: { code: @params[:code] }).reorder('chapters.chapter').first
     @menu = create_menu
   end
 
   def show
     @params = permit_params
-    render_404 unless code?
+    render404 unless code?
     @chapter = Chapter.includes(novel: :site).where(novel_id: @params[:novel_id]).find(@params[:chapter_id])
     @menu = create_menu
   end
@@ -48,12 +48,12 @@ class SiteController < ApplicationController
     end
   end
 
-  def render_404
+  def render404
     @error = { status: 404, message: t('server_errors.defaults.status404') }
     render status: :not_found, template: 'errors/error'
   end
 
-  def render_500
+  def render500
     @error = { status: 500, message: t('server_errors.defaults.status500') }
     render status: :internal_server_error, template: 'errors/error'
   end

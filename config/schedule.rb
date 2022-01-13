@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path('../config/environment', __dir__)
 
 set :job_template, "/bin/bash -l -i -c ':job'"
