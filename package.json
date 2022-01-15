@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.8.1",
-    "@rails/webpacker": "^4.0.7",
+    "@rails/webpacker": "^5.4.3",
     "core-js": "3",
     "normalize.css": "^8.0.1"
   },

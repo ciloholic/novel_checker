@@ -3,26 +3,28 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.6'
+ruby '2.7.5'
 
 gem 'activeadmin'
 gem 'active_decorator'
-gem 'bcrypt', '~> 3.1.7'
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bcrypt'
+gem 'bootsnap', require: false
 gem 'coffee-rails'
 gem 'devise'
 gem 'dotenv-rails'
 gem 'meta-tags'
+gem 'mini_racer'
 gem 'nokogiri'
 gem 'novel_scraping', git: 'https://github.com/ciloholic/novel_scraping.git', branch: 'main', ref: 'a2214c6108fa0f79b830ba596a05fc353d22be45'
 gem 'parallel'
 gem 'pg'
-gem 'puma', '~> 3.12'
-gem 'rails', '~> 6.1.3.1'
+gem 'puma'
+gem 'rails', '< 7'
 gem 'rubocop-performance'
 gem 'rubocop-rails'
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
 gem 'slim-rails'
+gem 'sprockets', '< 4'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'webpacker'
 gem 'whenever', require: false
@@ -33,9 +35,9 @@ group :development do
   gem 'binding_of_caller'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'foreman'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen'
   gem 'rubocop'
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'web-console', '>= 3.3.0'
+  gem 'spring-watcher-listen'
+  gem 'web-console'
 end

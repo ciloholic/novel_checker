@@ -4,14 +4,12 @@ FROM ruby:$RUBY_VERSION_ARG-alpine
 
 ARG BUNDLER_VERSION_ARG
 
-RUN apk add --no-cache git build-base postgresql-dev postgresql-client tzdata bash less yarn && \
+RUN apk add --no-cache git build-base postgresql-dev postgresql-client tzdata bash less yarn nodejs && \
     cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 WORKDIR /app
 
 COPY package.json yarn.lock Gemfile Gemfile.lock .
-
-RUN yarn
 
 ENV LANG=ja_JP.UTF-8 \
     GEM_HOME=/bundle \
