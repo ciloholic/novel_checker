@@ -1,0 +1,23 @@
+<%# 目次 %>
+<% set_meta_tags title: novel.title %>
+<div class="content__title">
+  <h3><%= novel.replace_title %></h3>
+</div>
+<ul class="content__chapter">
+  <% novel.chapters.each do |chapter| %>
+  <li>
+    <a href="/<%= params[:code] %>/<%= params[:novel_id] %>/<%= chapter.id %>#main">
+      <%= "#{chapter.replace_sub_title}" %>
+      <% if !mobile? %>
+        <% if chapter.edit_at.present? %>
+          <span class="date"><%= chapter.edit_at.to_s(:human) %></span>
+        <% else %>
+          <span class="date"><%= chapter.post_at.to_s(:human) %></span>
+        <% end %>
+      <% end %>
+    </a>
+  </li>
+  <% end %>
+</ul>
+
+<%= render partial: 'menu', locals: { menu: menu } %>

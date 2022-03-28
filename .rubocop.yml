@@ -3,11 +3,7 @@ require: rubocop-performance
 AllCops:
   NewCops: enable
   Exclude:
-    - config.ru
-    - Rakefile
     - db/**/*
-    - bin/**/*
-    - config/**/*
     - vendor/**/*
     - node_modules/**/*
 
@@ -50,7 +46,7 @@ Style/SlicingWithRange:
   Enabled: true
 
 Style/StringLiterals:
-  Enabled: false
+  Enabled: true
 
 #################### Lint ####################
 

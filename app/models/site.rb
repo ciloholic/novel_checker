@@ -4,22 +4,26 @@
 #
 # Table name: sites
 #
-#  id         :bigint           not null, primary key
-#  name       :string(255)      not null
-#  code       :string(255)      not null
-#  url        :string(255)      not null
-#  sort       :bigint           not null
+#  id         :uuid             not null, primary key
+#  code       :string           not null
+#  name       :string           not null
 #  restrict   :boolean          default(FALSE), not null
+#  sort       :bigint           not null
+#  url        :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_sites_on_code  (code) UNIQUE
 #
 
 class Site < ApplicationRecord
   include CacheSupport
+
   has_many :novels, dependent: :destroy
   has_one :scraping_status, dependent: :destroy
-  accepts_nested_attributes_for :novels, allow_destroy: true
 
-  default_scope { order(sort: :asc) }
+  scope :sort_asc, -> { order(sort: :asc) }
   scope :published, -> { includes(:novels).where.not(novels: { title: '' }) }
 end

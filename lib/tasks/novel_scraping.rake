@@ -12,7 +12,7 @@ namespace :novel_scraping do
   using Module.new {
     refine(top_level.singleton_class) do
       def scraping(code, force: false)
-        site = Site.find_by!(code: code)
+        site = Site.find_by!(code:)
         Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
           unless !novel.non_target || force
             Rails.logger.info(format('[%s] skip non target', Time.zone.now.strftime('%Y/%m/%d %H:%M:%S')))
@@ -21,7 +21,7 @@ namespace :novel_scraping do
 
           begin
             novel.title, chapter_blocks =
-              if novel.title.empty?
+              if novel.title.blank?
                 NovelScraping.access(novel.target_url)
               else
                 NovelScraping.access(novel.target_url, from: novel.chapters.maximum(:edit_at) + 1)
@@ -29,7 +29,7 @@ namespace :novel_scraping do
           rescue StandardError
             next
           end
-          next if novel.title.empty?
+          next if novel.title.blank?
 
           novel.save! if novel.title_changed?
           chapter_blocks.each do |chapter_block|
@@ -104,36 +104,36 @@ namespace :novel_scraping do
 
   desc 'Scraping the arcadia'
   task :arcadia, ['force'] => :environment do |_, args|
-    scraping('arcadia', args[:force])
+    scraping('arcadia', force: args[:force] || false)
   end
 
   desc 'Scraping the arcadia-r18'
   task :'arcadia-r18', ['force'] => :environment do |_, args|
-    scraping('arcadia-r18', args[:force])
+    scraping('arcadia-r18', force: args[:force] || false)
   end
 
   desc 'Scraping the narou'
   task :narou, ['force'] => :environment do |_, args|
-    scraping('narou', args[:force])
+    scraping('narou', force: args[:force] || false)
   end
 
   desc 'Scraping the hameln'
   task :hameln, ['force'] => :environment do |_, args|
-    scraping('hameln', args[:force])
+    scraping('hameln', force: args[:force] || false)
   end
 
   desc 'Scraping the akatsuki'
   task :akatsuki, ['force'] => :environment do |_, args|
-    scraping('akatsuki', args[:force])
+    scraping('akatsuki', force: args[:force] || false)
   end
 
   desc 'Scraping the nocturne'
   task :nocturne, ['force'] => :environment do |_, args|
-    scraping('nocturne', args[:force])
+    scraping('nocturne', force: args[:force] || false)
   end
 
   desc 'Scraping the hameln-r18'
   task :'hameln-r18', ['force'] => :environment do |_, args|
-    scraping('hameln-r18', args[:force])
+    scraping('hameln-r18', force: args[:force] || false)
   end
 end

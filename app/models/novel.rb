@@ -4,13 +4,23 @@
 #
 # Table name: novels
 #
-#  id         :bigint           not null, primary key
-#  site_id    :bigint
-#  code       :string(255)      not null
-#  title      :string(255)
+#  id         :uuid             not null, primary key
+#  code       :string           not null
 #  deleted_at :datetime
+#  non_target :boolean          default(FALSE), not null
+#  title      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  site_id    :uuid
+#
+# Indexes
+#
+#  index_novels_on_site_id           (site_id)
+#  index_novels_on_site_id_and_code  (site_id,code) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (site_id => sites.id)
 #
 
 class Novel < ApplicationRecord
@@ -19,7 +29,7 @@ class Novel < ApplicationRecord
   accepts_nested_attributes_for :chapters, allow_destroy: true
 
   default_scope { order(site_id: :asc, code: :asc) }
-  scope :select_site, ->(site_id) { includes(:chapters).where(site_id: site_id) }
+  scope :select_site, ->(site_id) { includes(:chapters).where(site_id:) }
   scope :published, -> { where(deleted_at: nil).where.not(title: nil) }
 
   def target_url

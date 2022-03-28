@@ -3,31 +3,35 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.5'
+ruby '3.1.1'
 
-gem 'activeadmin'
 gem 'active_decorator'
-gem 'bcrypt'
+gem 'administrate'
+gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', require: false
-gem 'coffee-rails'
-gem 'devise'
+gem 'cssbundling-rails'
 gem 'dotenv-rails'
+gem 'jbuilder'
+gem 'jsbundling-rails'
 gem 'meta-tags'
-gem 'mini_racer'
 gem 'nokogiri'
-gem 'novel_scraping', git: 'https://github.com/ciloholic/novel_scraping.git', branch: 'main', ref: 'a2214c6108fa0f79b830ba596a05fc353d22be45'
+gem 'novel_scraping', git: 'https://github.com/ciloholic/novel_scraping.git', branch: 'main'
 gem 'parallel'
-gem 'pg'
-gem 'puma'
-gem 'rails', '< 7'
+gem 'pg', '~> 1.1'
+gem 'puma', '~> 5.0'
+gem 'rails', '~> 7.0.2', '>= 7.0.2.3'
 gem 'rubocop-performance'
 gem 'rubocop-rails'
-gem 'sass-rails'
-gem 'slim-rails'
-gem 'sprockets', '< 4'
+gem 'sprockets-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'webpacker'
-gem 'whenever', require: false
+# gem "turbo-rails"
+# gem "stimulus-rails"
+# gem "sassc-rails"
+
+group :development, :test do
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem 'debug', platforms: %i[mri mingw x64_mingw]
+end
 
 group :development do
   gem 'annotate'

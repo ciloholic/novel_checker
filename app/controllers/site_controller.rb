@@ -2,6 +2,7 @@
 
 class SiteController < ApplicationController
   include CommonActions
+
   before_action :set_sites
   protect_from_forgery with: :exception
 

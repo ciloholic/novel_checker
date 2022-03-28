@@ -1,0 +1,44 @@
+x-ruby-args: &ruby-args
+  BUNDLER_VERSION_ARG: $BUNDLER_VERSION
+  RUBY_VERSION_ARG: $RUBY_VERSION
+x-rails-environment: &rails-environment
+  RAILS_ENV: development
+  EDITOR: vi
+  MALLOC_ARENA_MAX: 2
+  WEB_CONCURRENCY: 1
+
+services:
+  web:
+    build:
+      context: .
+      target: develop
+      dockerfile: Dockerfile
+      args:
+        <<: *ruby-args
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/app:cached
+      - bundle:/bundle:cached
+      - bundle_cache:/app/tmp/cache:cached
+      - rubocop_cache:/root/.cache/rubocop_cache:cached
+    tty: true
+    environment:
+      <<: *rails-environment
+    depends_on:
+      - db
+  db:
+    image: postgres:14.2-alpine
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_INITDB_ARGS: '--encoding=UTF-8 --locale=ja_JP.UTF-8'
+volumes:
+  bundle:
+  bundle_cache:
+  rubocop_cache:
+  postgres:

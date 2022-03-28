@@ -4,9 +4,17 @@
 #
 # Table name: scraping_statuses
 #
-#  id             :bigint           not null, primary key
-#  site_id        :bigint
+#  id             :uuid             not null, primary key
 #  executing_time :datetime
+#  site_id        :uuid
+#
+# Indexes
+#
+#  index_scraping_statuses_on_site_id  (site_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (site_id => sites.id)
 #
 
 class ScrapingStatus < ApplicationRecord

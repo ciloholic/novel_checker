@@ -1,0 +1,10 @@
+<div class="container">
+  <aside class="sidebar">
+    <%= render partial: 'site/sidebar', locals: { sites: @sites } %>
+  </aside>
+  <main id="main" class="main">
+    <div class="content">
+      <p><%= @error[:message] %></p>
+    </div>
+  </main>
+</div>

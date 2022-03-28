@@ -1,0 +1,10 @@
+<%# 詳細 %>
+<% set_meta_tags title: chapter.sub_title %>
+<div class="content__title">
+  <h3><%= chapter.sub_title %></h3>
+</div>
+<div class="content__body">
+  <%== chapter.content %>
+</div>
+
+<%= render partial: 'menu', locals: { menu: menu } %>

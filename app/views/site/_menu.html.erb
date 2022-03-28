@@ -1,0 +1,17 @@
+<%# メニュー %>
+<% if menu.present? %>
+  <ul class="menu">
+    <% if menu[:previous].present? %>
+      <li><a href="/<%= params[:code] %>/<%= params[:novel_id] %>/<%= menu[:previous][:id] %>#main"><i class="fa fa-angle-left"></i></a></li>
+    <% else %>
+      <li><a class="menu__notLink" href="javascript:void(0);">-</a></li>
+    <% end %>
+    <li><a href="/">トップ</a></li>
+    <li><a href="/<%= params[:code] %>/<%= params[:novel_id] %>#main">目次</a></li>
+    <% if menu[:next].present? %>
+      <li><a href="/<%= params[:code] %>/<%= params[:novel_id] %>/<%= menu[:next][:id] %>#main"><i class="fa fa-angle-right"></i></a></li>
+    <% else %>
+      <li><a class="menu__notLink" href="javascript:void(0);">-</a></li>
+    <% end %>
+  </ul>
+<% end %>

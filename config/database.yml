@@ -13,9 +13,12 @@ default: &default
 
 development:
   <<: *default
-
-production:
-  <<: *default
+  database: novel_checker_dev
 
 test:
   <<: *default
+  database: novel_checker_tst
+
+production:
+  <<: *default
+  database: novel_checker_prd
