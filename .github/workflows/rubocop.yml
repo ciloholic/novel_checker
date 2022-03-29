@@ -1,0 +1,52 @@
+name: Rubocop
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set environment variables
+      run: awk -F ' ' '{if( $0 ~ "RUBY_VERSION" ) print $2}' .envrc >> $GITHUB_ENV
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ env.RUBY_VERSION }}
+
+    - name: Set locale
+      run: |
+        sudo apt-get update
+        sudo apt-get install tzdata locales language-pack-ja -y
+        sudo update-locale LANG=ja_JP.UTF-8
+
+    - name: Restore bundle cache
+      uses: actions/cache@v3
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          ${{ runner.os }}-gem-
+
+    - name: Restore rubocop cache
+      uses: actions/cache@v3
+      with:
+        path: tmp/rubocop_cache
+        key: ${{ runner.os }}-rubocop-${{ hashFiles('**/.rubocop.yml') }}
+        restore-keys: |
+          ${{ runner.os }}-rubocop-${{ hashFiles('**/.rubocop.yml') }}
+          ${{ runner.os }}-rubocop-
+
+    - name: Install dependencies
+      run: |
+        bundle config path vendor/bundle
+        bundle install --jobs 4 --retry 3
+
+    - name: Run rubocop
+      run: bundle exec rubocop --parallel --cache-root tmp/rubocop_cache
