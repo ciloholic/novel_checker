@@ -19,12 +19,6 @@ jobs:
       with:
         ruby-version: ${{ env.RUBY_VERSION }}
 
-    - name: Set locale
-      run: |
-        sudo apt-get update
-        sudo apt-get install tzdata locales language-pack-ja -y
-        sudo update-locale LANG=ja_JP.UTF-8
-
     - name: Restore bundle cache
       uses: actions/cache@v3
       with:

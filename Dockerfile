@@ -9,7 +9,6 @@ RUN apk add --no-cache git build-base postgresql-dev postgresql-client tzdata ba
 
 WORKDIR /app
 
-# COPY package.json yarn.lock Gemfile Gemfile.lock .
 COPY Gemfile Gemfile.lock .
 
 ENV LANG=ja_JP.UTF-8 \
