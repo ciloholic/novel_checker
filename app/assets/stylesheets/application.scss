@@ -89,13 +89,15 @@ span {
     }
 
     li {
+      display: flex;
+
       a {
+        @include text-overflow;
+
         display: block;
         padding: 5px 3px;
         font-weight: normal;
         text-decoration: none;
-
-        @include text-overflow;
 
         &.deleted {
           text-decoration: line-through;
@@ -104,6 +106,14 @@ span {
         &:hover {
           opacity: 0.5;
         }
+
+        &:first-child {
+          overflow: unset;
+        }
+      }
+
+      a + a {
+        padding-left: 0;
       }
 
       &:nth-child(even) {

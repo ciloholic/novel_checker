@@ -8,7 +8,12 @@
     <li>
       <% deleted = novel.deleted_at.present? ? 'deleted' : '' %>
       <% non_target = novel.non_target ? '[×] ' : '' %>
-      <a class="<%= deleted %>" href="/<%= site.code %>/<%= novel.id %>#main"><%= non_target %><%= novel.replace_title %></a>
+      <% if non_target.blank? %>
+        <a href="<%= novel.target_url %>" rel="noopener noreferrer" target="_blank">[◆]</a>
+      <% end %>
+      <a class="<%= deleted %>" href="/<%= site.code %>/<%= novel.id %>#main">
+        <%= non_target %><%= novel.replace_title %>
+      </a>
     </li>
   <% end %>
   </ul>
