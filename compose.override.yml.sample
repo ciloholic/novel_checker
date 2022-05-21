@@ -1,5 +1,0 @@
-services:
-  web:
-    restart: always
-  db:
-    restart: always

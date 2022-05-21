@@ -24,4 +24,7 @@ RUN gem update --system && \
     gem install --no-document bundler -v $BUNDLER_VERSION_ARG
 
 
-FROM base AS develop
+FROM base AS development
+
+
+FROM base AS production

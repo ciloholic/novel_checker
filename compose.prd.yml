@@ -2,7 +2,7 @@ x-ruby-args: &ruby-args
   BUNDLER_VERSION_ARG: $BUNDLER_VERSION
   RUBY_VERSION_ARG: $RUBY_VERSION
 x-rails-environment: &rails-environment
-  RAILS_ENV: development
+  RAILS_ENV: production
   EDITOR: vi
   MALLOC_ARENA_MAX: 2
   WEB_CONCURRENCY: 1
@@ -11,7 +11,7 @@ services:
   web:
     build:
       context: .
-      target: development
+      target: production
       dockerfile: Dockerfile
       args:
         <<: *ruby-args
@@ -21,8 +21,8 @@ services:
       - ./:/app:cached
       - bundle:/bundle:cached
       - bundle_cache:/app/tmp/cache:cached
-      - rubocop_cache:/root/.cache/rubocop_cache:cached
     tty: true
+    restart: always
     environment:
       <<: *rails-environment
     depends_on:
@@ -33,6 +33,7 @@ services:
       - postgres:/var/lib/postgresql/data
     ports:
       - 5432:5432
+    restart: always
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: password
@@ -40,5 +41,4 @@ services:
 volumes:
   bundle:
   bundle_cache:
-  rubocop_cache:
   postgres:
