@@ -4,7 +4,7 @@ FROM ruby:$RUBY_VERSION_ARG-alpine AS base
 
 ARG BUNDLER_VERSION_ARG
 
-RUN apk add --no-cache git build-base postgresql-dev postgresql-client tzdata bash less yarn nodejs python2 python3 && \
+RUN apk add --no-cache git build-base postgresql-dev postgresql-client tzdata bash less yarn nodejs && \
     cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 WORKDIR /app
