@@ -38,10 +38,10 @@ namespace :novel_scraping do
             if chapter.new_record?
               chapter.assign_attributes(chapter_block)
               chapter.save!
-              Rails.logger.info(format('[%s] C: [%s] [%s]', Time.zone.now.strftime('%Y/%m/%d %H:%M:%S'), novel.title, chapter_block[:sub_title]))
+              Rails.logger.info(format('[%<time>s] C: [%<title>s] [%<sub_title>s]', time: Time.zone.now.strftime('%Y/%m/%d %H:%M:%S'), title: novel.title, sub_title: chapter_block[:sub_title]))
             else
               chapter.update!(chapter_block)
-              Rails.logger.info(format('[%s] U: [%s] [%s]', Time.zone.now.strftime('%Y/%m/%d %H:%M:%S'), novel.title, chapter_block[:sub_title]))
+              Rails.logger.info(format('[%<time>s] U: [%<title>s] [%<sub_title>s]', time: Time.zone.now.strftime('%Y/%m/%d %H:%M:%S'), title: novel.title, sub_title: chapter_block[:sub_title]))
             end
           end
         end
