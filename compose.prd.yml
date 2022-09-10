@@ -12,7 +12,7 @@ services:
     build:
       context: .
       target: production
-      dockerfile: Dockerfile
+      dockerfile: ./docker/rails/Dockerfile
       args:
         <<: *ruby-args
     ports:
@@ -28,7 +28,7 @@ services:
     depends_on:
       - db
   db:
-    image: postgres:14.2-alpine
+    image: postgres:14.5-alpine
     volumes:
       - postgres:/var/lib/postgresql/data
     ports:

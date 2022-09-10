@@ -6,6 +6,8 @@ all: ## ビルドから起動まで
 	make build up ps
 reset: ## リセットからビルド、起動まで
 	make down prune build up ps
+ssl: ## SSL証明書の再生成
+	make ssl-delete ssl-generate
 
 prune: ## 不要なDockerイメージを破棄
 	docker system prune -f
@@ -29,6 +31,13 @@ annotate: ## Annotateを実行
 	docker compose exec web bundle exec annotate
 login: ## Railsコンテナへログイン
 	docker compose exec web bash
+ssl-generate: ## SSL証明書を生成
+	docker compose -f compose.mkcert.yml up -d
+	sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ./.mkcert/rootCA.pem
+	sudo security find-certificate -Z -c mkcert | grep SHA-1 | awk '{ print $$3 }' > ./.mkcert/.trusted-cert-hash
+ssl-delete: ## SSL証明書を削除
+	head -n 1 ./.mkcert/.trusted-cert-hash | xargs sudo security delete-certificate -Z
+	rm -f ./.mkcert/* ./.mkcert/.trusted-cert-hash
 help: ## ヘルプ
 	@echo 'Usage: make [target]'
 	@echo ''
