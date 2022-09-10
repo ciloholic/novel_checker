@@ -1,7 +1,0 @@
-services:
-  mkcert:
-    build:
-      context: .
-      dockerfile: ./docker/mkcert/Dockerfile
-    volumes:
-      - ./.mkcert:/mkcert:cached
