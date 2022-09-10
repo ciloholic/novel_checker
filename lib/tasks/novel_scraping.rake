@@ -76,7 +76,7 @@ namespace :novel_scraping do
     Parallel.each(Site.where.not(code: 'other'), in_processes: 2) do |site|
       ActiveRecord::Base.connection_pool.with_connection do
         Novel.where(site_id: site.id, deleted_at: nil, non_target: 0).where.not(updated_at: 1.month.ago..Float::INFINITY).each do |novel|
-          novel.update_column(:non_target, 1)
+          novel.update(:non_target, 1)
         end
       end
     end
@@ -92,9 +92,9 @@ namespace :novel_scraping do
 
           status_code = url_status(url)
           if !status_code && novel.deleted_at.blank?
-            novel.update_column(:deleted_at, Time.zone.now)
+            novel.update(:deleted_at, Time.zone.now)
           elsif status_code && novel.deleted_at.present?
-            novel.update_column(:deleted_at, nil)
+            novel.update(:deleted_at, nil)
           end
           random_sleep
         end

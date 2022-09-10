@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Time::DATE_FORMATS[:human] = lambda do |date|
-  seconds = (Time.now - date).round
+  seconds = (Time.zone.now - date).round
   days = seconds / (60 * 60 * 24)
   return date.strftime('%Y年%m月%d日') if days.positive?
 
