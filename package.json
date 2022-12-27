@@ -6,9 +6,9 @@
     "build:css": "sass ./app/assets/stylesheets/application.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.1.1",
-    "esbuild": "^0.14.28",
+    "@fortawesome/fontawesome-free": "^6.2.1",
+    "esbuild": "^0.16.10",
     "normalize.css": "^8.0.1",
-    "sass": "^1.49.9"
+    "sass": "^1.57.1"
   }
 }

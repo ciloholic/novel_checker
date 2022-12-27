@@ -5,11 +5,11 @@ default: &default
   collation: ja_JP.UTF-8
   ctype: ja_JP.UTF-8
   pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
-  timeout: 5000
   username: <%= ENV.fetch('DATABASE_USER') %>
   password: <%= ENV.fetch('DATABASE_PASSWORD') %>
-  database: <%= ENV.fetch('DATABASE_NAME') %>
   host: <%= ENV.fetch('DATABASE_HOST') %>
+  variables:
+    statement_timeout: 60000
 
 development:
   <<: *default

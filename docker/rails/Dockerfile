@@ -20,11 +20,19 @@ ENV BUNDLE_PATH $GEM_HOME
 ENV BUNDLE_APP_CONFIG=$BUNDLE_PATH \
     BUNDLE_BIN=$BUNDLE_PATH/bin
 ENV PATH $BUNDLE_BIN:$PATH
-RUN gem update --system && \
-    gem install --no-document bundler -v $BUNDLER_VERSION_ARG
 
 
 FROM base AS development
 
+RUN gem update --system && \
+    gem install --no-document bundler -v $BUNDLER_VERSION_ARG
+
 
 FROM base AS production
+
+RUN gem update --system && \
+    gem install --no-document bundler -v $BUNDLER_VERSION_ARG && \
+    bundle config set frozen 'true' && \
+    bundle config set without 'development test'
+
+CMD ["ash", "-c", "bin/rails s -b '0.0.0.0' -p 3000 -e production"]

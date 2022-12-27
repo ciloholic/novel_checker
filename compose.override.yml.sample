@@ -1,0 +1,22 @@
+x-ruby-args: &ruby-args
+  BUNDLER_VERSION_ARG: $BUNDLER_VERSION
+  RUBY_VERSION_ARG: $RUBY_VERSION
+x-rails-environment: &rails-environment
+  RAILS_ENV: production
+  WEB_CONCURRENCY: 2
+
+services:
+  nginx:
+    restart: always
+  web:
+    build:
+      context: .
+      target: production
+      dockerfile: ./docker/rails/Dockerfile
+      args:
+        <<: *ruby-args
+    environment:
+      <<: *rails-environment
+    restart: always
+  db:
+    restart: always

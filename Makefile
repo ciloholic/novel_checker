@@ -1,12 +1,12 @@
 SHELL := /bin/bash
 .DEFAULT_GOAL := all
+# https://gist.github.com/tadashi-aikawa/da73d277a3c1ec6767ed48d1335900f3
 .PHONY: $(shell egrep -oh ^[a-zA-Z0-9][a-zA-Z0-9_-]+: $(MAKEFILE_LIST) | sed 's/://')
 
 all: ## ビルドから起動まで
 	make build up ps
 reset: ## リセットからビルド、起動まで
 	make down prune build up ps
-
 prune: ## 不要なDockerイメージを破棄
 	docker system prune -f
 ps: ## 起動中のコンテナを表示
@@ -29,6 +29,8 @@ annotate: ## Annotateを実行
 	docker compose exec web bundle exec annotate
 login: ## Railsコンテナへログイン
 	docker compose exec web bash
+
+# https://postd.cc/auto-documented-makefile/
 help: ## ヘルプ
 	@echo 'Usage: make [target]'
 	@echo ''
