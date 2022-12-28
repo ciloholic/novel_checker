@@ -10,8 +10,8 @@ Rails.application.routes.draw do
     root to: 'sites#index'
   end
 
-  get ':code/:novel_id', to: 'site#index', code: /[a-z0-9\-]+/, novel_id: /[0-9a-f\-]+/
-  get ':code/:novel_id/:chapter_id', to: 'site#show', code: /[a-z0-9\-]+/, novel_id: /[0-9a-f\-]+/, chapter_id: /[0-9a-f\-]+/
+  get ':code/:novel_id', to: 'site#index', code: /[a-z0-9-]+/, novel_id: /[0-9a-f-]+/
+  get ':code/:novel_id/:chapter_id', to: 'site#show', code: /[a-z0-9-]+/, novel_id: /[0-9a-f-]+/, chapter_id: /[0-9a-f-]+/
 
   root to: 'site#top'
   match '*any' => 'application#render404', via: :all
