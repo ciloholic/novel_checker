@@ -20,3 +20,21 @@ services:
     restart: always
   db:
     restart: always
+  # crond:
+  #   build:
+  #     context: .
+  #     target: production
+  #     dockerfile: ./docker/rails/Dockerfile
+  #     args:
+  #       <<: *ruby-args
+  #   command: crond -f -l 2
+  #   restart: always
+  #   volumes:
+  #     - ./:/app:cached
+  #     - bundle:/bundle:cached
+  #     - bundle_cache:/app/tmp/cache:cached
+  #   tty: true
+  #   environment:
+  #     <<: *rails-environment
+  #   depends_on:
+  #     - db

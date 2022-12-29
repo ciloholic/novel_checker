@@ -2,7 +2,7 @@
 
 require File.expand_path('../config/environment', __dir__)
 
-set :job_template, "/bin/bash -l -i -c ':job'"
+set :job_template, "ash -il -c ':job'"
 
 hhmm = [*0..23].map { |hh| "#{hh.to_s.rjust(2, '0')}:#{rand(1...59).to_s.rjust(2, '0')}" }
 if Time.zone.now.day == 1
