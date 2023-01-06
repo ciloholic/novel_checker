@@ -33,6 +33,7 @@ FROM base AS production
 RUN gem update --system && \
     gem install --no-document bundler -v $BUNDLER_VERSION_ARG && \
     bundle config set frozen 'true' && \
-    bundle config set without 'development test'
+    bundle config set without 'development test' && \
+    bundle install
 
 CMD ["ash", "-c", "bin/rails s -b '0.0.0.0' -p 3000 -e production"]
