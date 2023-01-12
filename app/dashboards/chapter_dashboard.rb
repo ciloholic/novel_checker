@@ -11,7 +11,6 @@ class ChapterDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     novel: Field::BelongsTo,
-    id: Field::String,
     chapter: Field::Number,
     sub_title: Field::String,
     content: Field::Text,
@@ -34,7 +33,6 @@ class ChapterDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     novel
-    id
     chapter
     sub_title
     content

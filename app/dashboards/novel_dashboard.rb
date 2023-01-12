@@ -11,8 +11,6 @@ class NovelDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     site: Field::BelongsTo,
-    chapters: Field::HasMany,
-    id: Field::String,
     code: Field::String,
     title: Field::String,
     non_target: Field::Boolean,
@@ -36,8 +34,6 @@ class NovelDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     site
-    chapters
-    id
     code
     title
     non_target
@@ -51,7 +47,6 @@ class NovelDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     site
-    chapters
     code
     title
     non_target

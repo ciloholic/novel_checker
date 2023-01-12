@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :chapters
     resources :scraping_statuses
 
-    root to: 'sites#index'
+    root to: 'novels#index'
   end
 
   get ':code/:novel_id', to: 'site#index', code: /[a-z0-9-]+/, novel_id: /[0-9a-f-]+/
