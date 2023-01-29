@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
-@import "normalize.css";
+@use "../../../node_modules/modern-css-reset/dist/reset.min.css";
+
 @import "variables";
 @import url("https://fonts.googleapis.com/css?family=M+PLUS+1p&subset=japanese");
 

@@ -8,7 +8,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.2.1",
     "esbuild": "^0.16.10",
-    "normalize.css": "^8.0.1",
+    "modern-css-reset": "^1.4.0",
     "sass": "^1.57.1"
   }
 }

@@ -1,7 +1,7 @@
 <%# 新着 %>
 <% set_meta_tags title: 'TOP' %>
 <div class="content__title">
-  <h3>新着 [ <%= scraping_statuses.maximum(:executing_time).to_s(:human) %> ]</h3>
+  <h3>新着 [ <%= scraping_statuses.maximum(:executing_time).to_fs(:human) %> ]</h3>
 </div>
 <ul class="content__notification">
   <% notifications.each do |notification| %>
@@ -9,7 +9,7 @@
     <li>
       <a href="<%= notification.target_url %>" rel="noopener noreferrer" target="_blank">
         <span><%= notification.string_restrict %> <%= notification.replace_title %></span>
-        <span class="date"><%= notification.updated_at.to_s(:human) %></span>
+        <span class="date"><%= notification.updated_at.to_fs(:human) %></span>
       </a>
     </li>
     <% end %>

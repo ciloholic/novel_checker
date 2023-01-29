@@ -10,9 +10,9 @@
       <%= "#{chapter.replace_sub_title}" %>
       <% if !mobile? %>
         <% if chapter.edit_at.present? %>
-          <span class="date"><%= chapter.edit_at.to_s(:human) %></span>
+          <span class="date"><%= chapter.edit_at.to_fs(:human) %></span>
         <% else %>
-          <span class="date"><%= chapter.post_at.to_s(:human) %></span>
+          <span class="date"><%= chapter.post_at.to_fs(:human) %></span>
         <% end %>
       <% end %>
     </a>

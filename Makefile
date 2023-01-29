@@ -24,7 +24,7 @@ downv: ## コンテナとボリューム、ネットワークを破棄
 restart: ## コンテナを再起動
 	docker compose restart
 rubocop: ## Rubocopを実行
-	docker compose exec web bundle exec rubocop -AP
+	docker compose exec web bundle exec rubocop -A
 annotate: ## Annotateを実行
 	docker compose exec web bundle exec annotate
 login: ## Railsコンテナへログイン
