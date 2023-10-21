@@ -9,15 +9,13 @@ jobs:
   rubocop:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-
-    - name: Set environment variables
-      run: awk -F ' ' '{if( $0 ~ "RUBY_VERSION" ) print $2}' .envrc >> $GITHUB_ENV
+    - uses: actions/checkout@v4
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: ${{ env.RUBY_VERSION }}
+        ruby-version: .ruby-version
+        bundler: Gemfile.lock
         bundler-cache: true
 
     - name: Restore rubocop cache

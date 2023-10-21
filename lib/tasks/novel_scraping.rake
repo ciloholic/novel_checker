@@ -13,7 +13,7 @@ namespace :novel_scraping do
     refine(top_level.singleton_class) do
       def scraping(code, force: false)
         site = Site.find_by!(code:)
-        Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).each do |novel|
+        Novel.includes(:chapters).where(site_id: site.id, deleted_at: nil).find_each do |novel|
           unless !novel.non_target || force
             Rails.logger.info(format('[%s] skip non target', Time.zone.now.strftime('%Y/%m/%d %H:%M:%S')))
             next
@@ -75,7 +75,7 @@ namespace :novel_scraping do
   task no_renewal_check: :environment do
     Parallel.each(Site.where.not(code: 'other'), in_processes: 2) do |site|
       ActiveRecord::Base.connection_pool.with_connection do
-        Novel.where(site_id: site.id, deleted_at: nil, non_target: 0).where.not(updated_at: 1.month.ago..Float::INFINITY).each do |novel|
+        Novel.where(site_id: site.id, deleted_at: nil, non_target: 0).where.not(updated_at: 1.month.ago..Float::INFINITY).find_each do |novel|
           novel.update(:non_target, 1)
         end
       end
@@ -86,7 +86,7 @@ namespace :novel_scraping do
   task link_check: :environment do
     Parallel.each(Site.where.not(code: 'other'), in_processes: 2) do |site|
       ActiveRecord::Base.connection_pool.with_connection do
-        Novel.where(site_id: site.id).each do |novel|
+        Novel.where(site_id: site.id).find_each do |novel|
           url = novel.target_url
           next if url.blank?
 
