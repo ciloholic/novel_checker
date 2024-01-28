@@ -25,13 +25,15 @@ ENV PATH $BUNDLE_BIN:$PATH
 FROM base AS development
 
 RUN gem update --system && \
-    gem install --no-document bundler -v $BUNDLER_VERSION_ARG
+    gem install --no-document bundler -v $BUNDLER_VERSION_ARG && \
+    bundle config set force_ruby_platform true
 
 
 FROM base AS production
 
 RUN gem update --system && \
     gem install --no-document bundler -v $BUNDLER_VERSION_ARG && \
+    bundle config set force_ruby_platform true && \
     bundle config set frozen 'true' && \
     bundle config set without 'development test' && \
     bundle install
