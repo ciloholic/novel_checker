@@ -49,8 +49,10 @@ namespace :novel_scraping do
         scraping_status.update!(executing_time: Time.zone.now)
       end
 
-      def url_status(url)
-        OpenURI.open_uri(url).status[0].to_i == Rack::Utils::SYMBOL_TO_STATUS_CODE[:ok]
+      def url_status(url, option = {})
+        Faraday.get(url) do |req|
+          req.headers['Cookie'] = option[:cookie] if option.key?(:cookie)
+        end
       rescue StandardError
         false
       end
@@ -76,7 +78,7 @@ namespace :novel_scraping do
     Parallel.each(Site.where.not(code: 'other'), in_processes: 2) do |site|
       ActiveRecord::Base.connection_pool.with_connection do
         Novel.where(site_id: site.id, deleted_at: nil, non_target: 0).where.not(updated_at: 1.month.ago..Float::INFINITY).find_each do |novel|
-          novel.update(:non_target, 1)
+          novel.update(non_target: true)
         end
       end
     end
@@ -90,11 +92,15 @@ namespace :novel_scraping do
           url = novel.target_url
           next if url.blank?
 
-          status_code = url_status(url)
+          option = {}.tap do |x|
+            x[:cookie] = 'over18=yes' if site.code == 'nocturne'
+            x[:cookie] = 'over18=off' if site.code == 'hameln-r18'
+          end
+          status_code = url_status(url, option)
           if !status_code && novel.deleted_at.blank?
-            novel.update(:deleted_at, Time.zone.now)
+            novel.update(deleted_at: Time.zone.now)
           elsif status_code && novel.deleted_at.present?
-            novel.update(:deleted_at, nil)
+            novel.update(deleted_at: nil)
           end
           random_sleep
         end
