@@ -50,9 +50,10 @@ namespace :novel_scraping do
       end
 
       def url_status(url, option = {})
-        Faraday.get(url) do |req|
+        res = Faraday.get(url) do |req|
           req.headers['Cookie'] = option[:cookie] if option.key?(:cookie)
         end
+        res.status == Rack::Utils::SYMBOL_TO_STATUS_CODE[:ok]
       rescue StandardError
         false
       end
