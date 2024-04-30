@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.2.3'
+ruby '3.3.1'
 
 gem 'active_decorator'
 gem 'administrate'
@@ -11,6 +11,7 @@ gem 'bcrypt', '~> 3.1.18'
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
 gem 'dotenv-rails'
+gem 'faraday'
 gem 'jbuilder'
 gem 'jsbundling-rails'
 gem 'meta-tags'
