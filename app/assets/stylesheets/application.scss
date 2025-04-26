@@ -2,7 +2,7 @@
 
 @use "../../../node_modules/modern-css-reset/dist/reset.min.css";
 
-@import "variables";
+@use "variables";
 @import url("https://fonts.googleapis.com/css?family=M+PLUS+1p&subset=japanese");
 
 @mixin date {
@@ -28,11 +28,11 @@ html {
 }
 
 body {
-  font-family: $base-font-family;
+  font-family: variables.$base-font-family;
   font-size: 1.4rem;
   line-height: 1.6;
-  color: $base-font-color;
-  background: $base-background;
+  color: variables.$base-font-color;
+  background: variables.$base-background;
 
   * {
     font-family: inherit;
@@ -44,7 +44,7 @@ li {
 }
 
 a {
-  color: $base-font-color;
+  color: variables.$base-font-color;
   text-decoration: none;
 }
 
@@ -53,7 +53,7 @@ a:hover {
 }
 
 span {
-  color: $base-font-color;
+  color: variables.$base-font-color;
   text-decoration: none;
 }
 
@@ -70,20 +70,20 @@ span {
 .sidebar {
   grid-area: sidebar;
   overflow: auto;
-  background: $base-background;
+  background: variables.$base-background;
 
   &__siteTitle {
     padding-left: 5px;
     font-size: 1.2rem;
     font-weight: bold;
-    color: $site-title-color;
-    background: $base-border-color;
+    color: variables.$site-title-color;
+    background: variables.$base-border-color;
   }
 
   &__novelTitle {
     margin-bottom: 1rem;
     font-size: 1rem;
-    border: 2px solid $base-border-color;
+    border: 2px solid variables.$base-border-color;
 
     &:last-child {
       margin-bottom: 0;
@@ -118,11 +118,11 @@ span {
       }
 
       &:nth-child(even) {
-        background: $base-even-background;
+        background: variables.$base-even-background;
       }
 
       &:nth-child(odd) {
-        background: $base-odd-background;
+        background: variables.$base-odd-background;
       }
     }
   }
@@ -145,7 +145,7 @@ span {
   li {
     width: 8rem;
     height: 4rem;
-    background: $base-border-color;
+    background: variables.$base-border-color;
 
     &:first-child {
       border-radius: 5px 0 0 5px;
@@ -156,7 +156,7 @@ span {
     }
 
     + li {
-      border-left: 1px dotted $base-even-background;
+      border-left: 1px dotted variables.$base-even-background;
     }
 
     a {
@@ -164,7 +164,7 @@ span {
       align-items: center;
       justify-content: center;
       height: 100%;
-      color: $site-title-color;
+      color: variables.$site-title-color;
       text-decoration: none;
     }
   }
@@ -175,7 +175,7 @@ span {
   &__title {
     margin-bottom: 10px;
     font-size: 1.5rem;
-    border-bottom: solid 1px $base-font-color;
+    border-bottom: solid 1px variables.$base-font-color;
   }
 
   &__chapter {
@@ -208,18 +208,18 @@ span {
     }
 
     > li:nth-child(even) {
-      background: $base-even-background;
+      background: variables.$base-even-background;
     }
 
     > li:nth-child(odd) {
-      background: $base-odd-background;
+      background: variables.$base-odd-background;
     }
   }
 
   &__body {
     padding: 10px;
     font-size: 1.4rem;
-    background: $base-content-background;
+    background: variables.$base-content-background;
     border-radius: 5px;
   }
 
@@ -254,11 +254,11 @@ span {
     }
 
     > li:nth-child(even) {
-      background: $base-even-background;
+      background: variables.$base-even-background;
     }
 
     > li:nth-child(odd) {
-      background: $base-odd-background;
+      background: variables.$base-odd-background;
     }
   }
 }

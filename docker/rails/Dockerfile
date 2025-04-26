@@ -1,10 +1,10 @@
 ARG RUBY_VERSION_ARG
 
-FROM ruby:$RUBY_VERSION_ARG-alpine AS base
+FROM ruby:${RUBY_VERSION_ARG:-3}-alpine AS base
 
 ARG BUNDLER_VERSION_ARG
 
-RUN apk add --no-cache git build-base postgresql-dev postgresql-client tzdata bash less yarn nodejs && \
+RUN apk add --no-cache git build-base postgresql-dev postgresql-client tzdata bash less yarn nodejs libffi-dev yaml-dev && \
     cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 WORKDIR /app
