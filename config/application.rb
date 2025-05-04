@@ -11,10 +11,7 @@ Bundler.require(*Rails.groups)
 module NovelChecker
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
-    config.time_zone = 'Tokyo'
-    config.i18n.default_locale = :ja
-    config.i18n.fallbacks = [I18n.default_locale]
+    config.load_defaults 8.0
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -23,5 +20,9 @@ module NovelChecker
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.time_zone = 'Tokyo'
+    config.i18n.default_locale = :ja
+    config.i18n.fallbacks = [I18n.default_locale]
   end
 end

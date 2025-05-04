@@ -26,7 +26,7 @@ restart: ## コンテナを再起動
 rubocop: ## Rubocopを実行
 	docker compose exec web bundle exec rubocop -a
 annotate: ## Annotateを実行
-	docker compose exec web bundle exec annotate
+	docker compose exec web bundle exec annotaterb models
 login: ## Railsコンテナへログイン
 	docker compose exec web bash
 

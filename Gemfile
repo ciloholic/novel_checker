@@ -7,7 +7,7 @@ ruby '3.4.3'
 
 gem 'active_decorator'
 gem 'administrate'
-gem 'bcrypt', '~> 3.1.18'
+gem 'bcrypt'
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
 gem 'dotenv-rails'
@@ -18,9 +18,9 @@ gem 'meta-tags'
 gem 'nokogiri'
 gem 'novel_scraping', git: 'https://github.com/ciloholic/novel_scraping.git', branch: 'main'
 gem 'parallel'
-gem 'pg', '~> 1.4'
-gem 'puma', '~> 6.0'
-gem 'rails', '~> 7.0'
+gem 'pg'
+gem 'puma'
+gem 'rails', '~> 8.0'
 gem 'sprockets-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'whenever', require: false
@@ -31,7 +31,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'annotate'
+  gem 'annotaterb'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
