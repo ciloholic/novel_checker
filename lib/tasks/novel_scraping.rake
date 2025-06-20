@@ -111,36 +111,36 @@ namespace :novel_scraping do
 
   desc 'Scraping the arcadia'
   task :arcadia, ['force'] => :environment do |_, args|
-    scraping('arcadia', force: args[:force] || false)
+    scraping('arcadia', force: ActiveRecord::Type::Boolean.new.cast(args[:force]) || false)
   end
 
   desc 'Scraping the arcadia-r18'
   task :'arcadia-r18', ['force'] => :environment do |_, args|
-    scraping('arcadia-r18', force: args[:force] || false)
+    scraping('arcadia-r18', force: ActiveRecord::Type::Boolean.new.cast(args[:force]) || false)
   end
 
   desc 'Scraping the narou'
   task :narou, ['force'] => :environment do |_, args|
-    scraping('narou', force: args[:force] || false)
+    scraping('narou', force: ActiveRecord::Type::Boolean.new.cast(args[:force]) || false)
   end
 
   desc 'Scraping the hameln'
   task :hameln, ['force'] => :environment do |_, args|
-    scraping('hameln', force: args[:force] || false)
+    scraping('hameln', force: ActiveRecord::Type::Boolean.new.cast(args[:force]) || false)
   end
 
   desc 'Scraping the akatsuki'
   task :akatsuki, ['force'] => :environment do |_, args|
-    scraping('akatsuki', force: args[:force] || false)
+    scraping('akatsuki', force: ActiveRecord::Type::Boolean.new.cast(args[:force]) || false)
   end
 
   desc 'Scraping the nocturne'
   task :nocturne, ['force'] => :environment do |_, args|
-    scraping('nocturne', force: args[:force] || false)
+    scraping('nocturne', force: ActiveRecord::Type::Boolean.new.cast(args[:force]) || false)
   end
 
   desc 'Scraping the hameln-r18'
   task :'hameln-r18', ['force'] => :environment do |_, args|
-    scraping('hameln-r18', force: args[:force] || false)
+    scraping('hameln-r18', force: ActiveRecord::Type::Boolean.new.cast(args[:force]) || false)
   end
 end
