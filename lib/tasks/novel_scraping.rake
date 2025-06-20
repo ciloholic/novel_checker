@@ -59,7 +59,7 @@ namespace :novel_scraping do
       end
 
       def random_sleep(min: 1, max: 4)
-        sleep([*min..max].sample)
+        sleep(rand(min..max))
       end
     end
   }
