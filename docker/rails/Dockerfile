@@ -1,6 +1,6 @@
 ARG RUBY_VERSION_ARG
 
-FROM ruby:${RUBY_VERSION_ARG:-3}-alpine AS base
+FROM ruby:${RUBY_VERSION_ARG:-4}-alpine AS base
 
 ARG BUNDLER_VERSION_ARG
 

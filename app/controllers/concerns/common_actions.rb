@@ -2,6 +2,7 @@
 
 module CommonActions
   extend ActiveSupport::Concern
+
   def set_sites
     @sites = Site.published.reorder('sites.sort asc, novels.code asc')
   end

@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.4.3'
+ruby '4.0.1'
 
 gem 'active_decorator'
 gem 'administrate'
@@ -11,6 +11,7 @@ gem 'bcrypt'
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
 gem 'dotenv-rails'
+gem 'faker'
 gem 'faraday'
 gem 'jbuilder'
 gem 'jsbundling-rails'
@@ -22,19 +23,19 @@ gem 'pg'
 gem 'puma'
 gem 'rails', '~> 8.0'
 gem 'sprockets-rails'
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'tzinfo-data', platforms: %i[windows jruby]
 gem 'whenever', require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem 'debug', platforms: %i[mri mingw x64_mingw]
+  gem 'debug', platforms: %i[mri windows]
 end
 
 group :development do
   gem 'annotaterb'
   gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  # gem 'binding_of_caller'
+  gem 'byebug', platforms: %i[mri windows]
   gem 'foreman'
   gem 'listen'
   gem 'rubocop', require: false
