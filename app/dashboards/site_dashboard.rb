@@ -69,8 +69,7 @@ class SiteDashboard < Administrate::BaseDashboard
 
   # Overwrite this method to customize how sites are displayed
   # across all pages of the admin dashboard.
-  #
-  # def display_resource(site)
-  #   "Site ##{site.id}"
-  # end
+  def display_resource(site)
+    site.name
+  end
 end

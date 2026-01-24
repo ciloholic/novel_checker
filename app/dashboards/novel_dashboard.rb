@@ -67,8 +67,7 @@ class NovelDashboard < Administrate::BaseDashboard
 
   # Overwrite this method to customize how novels are displayed
   # across all pages of the admin dashboard.
-  #
-  # def display_resource(novel)
-  #   "Novel ##{novel.id}"
-  # end
+  def display_resource(novel)
+    novel.title
+  end
 end
