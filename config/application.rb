@@ -29,5 +29,6 @@ module NovelChecker
     config.time_zone = 'Tokyo'
     config.i18n.default_locale = :ja
     config.i18n.fallbacks = [I18n.default_locale]
+    config.active_storage.variant_processor = :disabled
   end
 end
