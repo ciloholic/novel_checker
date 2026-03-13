@@ -3,7 +3,7 @@
 @use "../../../node_modules/modern-css-reset/dist/reset.min.css";
 
 @use "variables";
-@import url("https://fonts.googleapis.com/css?family=M+PLUS+1p&subset=japanese");
+@import url("https://fonts.googleapis.com/css?family=M+PLUS+1p&subset=japanese&display=swap");
 
 @mixin date {
   &.date {
@@ -16,6 +16,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+@mixin hover-opacity {
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
 * {
@@ -33,6 +39,7 @@ body {
   line-height: 1.6;
   color: variables.$base-font-color;
   background: variables.$base-background;
+  overflow: hidden;
 
   * {
     font-family: inherit;
@@ -54,27 +61,31 @@ a:hover {
 
 span {
   color: variables.$base-font-color;
-  text-decoration: none;
 }
 
 /* ----- container ----- */
 .container {
   display: grid;
   grid-template-areas: "sidebar main";
-  grid-template-columns: auto 70vw;
+  grid-template-columns: minmax(200px, 280px) 1fr;
   gap: 1rem;
-  margin: 1rem;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 /* ----- sidebar ----- */
 .sidebar {
   grid-area: sidebar;
-  overflow: auto;
+  height: 100vh;
+  overflow-y: auto;
   background: variables.$base-background;
 
   &__siteTitle {
-    padding-left: 5px;
-    font-size: 1.2rem;
+    padding: 4px 5px;
+    font-size: 1.3rem;
     font-weight: bold;
     color: variables.$site-title-color;
     background: variables.$base-border-color;
@@ -82,7 +93,7 @@ span {
 
   &__novelTitle {
     margin-bottom: 1rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
     border: 2px solid variables.$base-border-color;
 
     &:last-child {
@@ -104,12 +115,13 @@ span {
           text-decoration: line-through;
         }
 
-        &:hover {
-          opacity: 0.5;
-        }
+        @include hover-opacity;
 
         &:first-child {
+          flex-shrink: 0;
           overflow: unset;
+          color: variables.$site-title-color;
+          font-weight: bold;
         }
       }
 
@@ -131,6 +143,8 @@ span {
 /* ----- main ----- */
 .main {
   grid-area: main;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 /* ----- menu ----- */
@@ -141,6 +155,7 @@ span {
   justify-content: center;
   padding: 30px 0;
   font-size: 1.4rem;
+  background: variables.$base-background;
 
   li {
     width: 8rem;
@@ -166,6 +181,16 @@ span {
       height: 100%;
       color: variables.$site-title-color;
       text-decoration: none;
+
+      &.menu__notLink {
+        opacity: 0.3;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+
+      &:not(.menu__notLink) {
+        @include hover-opacity;
+      }
     }
   }
 }
@@ -217,8 +242,11 @@ span {
   }
 
   &__body {
-    padding: 10px;
-    font-size: 1.4rem;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 30px;
+    font-size: 1.6rem;
+    line-height: 2.0;
     background: variables.$base-content-background;
     border-radius: 5px;
   }
@@ -269,15 +297,18 @@ span {
     grid-template-areas:
       "main"
       "sidebar";
-    grid-template-rows: 1fr;
+    grid-template-rows: 1fr auto;
     grid-template-columns: 100%;
-    grid-row-gap: 30px;
-    margin: 10px;
+    row-gap: 0;
+    padding: 0;
+    height: 100dvh;
   }
 
   /* ----- sidebar ----- */
   .sidebar {
-    overflow: hidden;
+    height: auto;
+    max-height: 40dvh;
+    overflow-y: auto;
 
     &__siteTitle {
       font-size: 1.4rem;
@@ -296,6 +327,8 @@ span {
 
   /* ----- main ----- */
   .main {
+    height: auto;
+    overflow-y: auto;
     margin-left: 0;
   }
 

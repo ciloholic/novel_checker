@@ -1,7 +1,7 @@
 <%# 新着 %>
 <% set_meta_tags title: 'TOP' %>
 <div class="content__title">
-  <h3>新着 [ <%= scraping_statuses.maximum(:executing_time).to_fs(:human) %> ]</h3>
+  <h1>新着 [ <%= scraping_statuses.maximum(:executing_time).to_fs(:human) %> ]</h1>
 </div>
 <ul class="content__notification">
   <% notifications.each do |notification| %>
