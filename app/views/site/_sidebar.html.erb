@@ -7,7 +7,7 @@
   <% site.novels.each do |novel| %>
     <li>
       <% deleted = novel.deleted_at.present? ? 'deleted' : '' %>
-      <% non_target = novel.non_target ? '[×] ' : '' %>
+      <% non_target = novel.target_url.blank? ? '[×] ' : '' %>
       <% if non_target.blank? %>
         <a href="<%= novel.target_url %>" rel="noopener noreferrer" target="_blank">[◆]</a>
       <% end %>
