@@ -1,6 +1,7 @@
 !.keep
 /.bundle
 /.mkcert
+/.yarn
 /log/*
 /tmp/*
 /tmp/pids/*
